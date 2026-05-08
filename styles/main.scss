@@ -343,7 +343,15 @@ body {
 /* intro */
 /* --------------------- */
 .intro {
-  background: var(--color-bg-light);
+  background-color: var(--color-bg-light);
+  background-image: url("../img/white-paper-intro-bg-mobile.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @media (min-width: 1024px) {
+    background-image: url("../img/white-paper-intro-bg.jpg");
+  }
 
   &__description {
     font-size: var(--font-18);
@@ -351,30 +359,72 @@ body {
     margin: clamp(16px, 2vw, 24px) 0;
   }
 
-  &__learn-item {
-    align-items: center;
+  &__faq-list {
     background: #ffffff;
+    border: 1px solid rgba(18, 18, 18, 0.1);
     border-radius: 12px;
-    display: grid;
-    gap: 12px;
-    grid-template-columns: 28px 1fr;
-    padding: 16px;
+    box-shadow: 0 16px 40px rgba(18, 18, 18, 0.08);
+    overflow: hidden;
+    margin: clamp(16px, 2vw, 24px) 0 0;
+  }
 
-    p {
-      margin: 0;
+  &__faq-item {
+    border-bottom: 1px solid rgba(18, 18, 18, 0.1);
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &[open] {
+      background: rgba(154, 52, 181, 0.06);
+    }
+
+    &[open] summary::after {
+      background: var(--color-accent);
+      color: #ffffff;
+      content: "-";
+    }
+
+    summary {
+      align-items: center;
+      cursor: pointer;
+      display: grid;
+      font-weight: 700;
+      gap: 16px;
+      grid-template-columns: 28px 1fr 20px;
+      list-style: none;
+      padding: clamp(16px, calc(1.078vw + 11.471px), 27px) clamp(16px, calc(1.961vw + 7.765px), 36px);
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      &::after {
+        align-items: center;
+        border: 1px solid var(--color-accent);
+        border-radius: 50%;
+        color: var(--color-accent);
+        content: "+";
+        display: flex;
+        font-size: 14px;
+        font-weight: 400;
+        height: 20px;
+        justify-content: center;
+        line-height: 1;
+        width: 20px;
+      }
     }
 
     span {
-      font-weight: 700;
+      font-weight: 400;
     }
-  }
 
-  &__learn-list {
-    display: grid;
-    gap: 12px;
-    list-style: none;
-    margin: clamp(16px, 2vw, 24px) 0 0;
-    padding: 0;
+    p {
+      line-height: 1.5;
+      margin: 0; 
+      padding: clamp(16px, calc(1.078vw + 11.471px), 27px) clamp(16px, calc(1.961vw + 7.765px), 36px);
+      padding-left: calc(clamp(16px, calc(1.961vw + 7.765px), 36px) + 47px);
+    }
   }
 
   &__learn-title {

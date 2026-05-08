@@ -102,27 +102,33 @@
           This guide walks through the decisions that matter most.
         </p>
         <a class="button button--primary" href="#">Download now →</a>
-        <h3 class="intro__learn-title">What you will learn in this Whitepaper</h3>
-        <ul class="intro__learn-list">
-          <li class="intro__learn-item"><span>01</span>
-            <p>The edge-to-cloud architecture behind durable field workflows</p>
-          </li>
-          <li class="intro__learn-item"><span>02</span>
-            <p>How Entity Workflows turn a worker day into durable execution</p>
-          </li>
-          <li class="intro__learn-item"><span>03</span>
-            <p>How offline-first syncing works with SignalWithStart</p>
-          </li>
-          <li class="intro__learn-item"><span>04</span>
-            <p>How to scale 1000s of workflows without overbuilding infrastructure</p>
-          </li>
-          <li class="intro__learn-item"><span>05</span>
-            <p>How to run Temporal with zero-trust security</p>
-          </li>
-          <li class="intro__learn-item"><span>06</span>
-            <p>What reliability looks like when it becomes a business advantage</p>
-          </li>
-        </ul>
+        <h3 class="intro__learn-title">What you&rsquo;ll learn in this Whitepaper</h3>
+        <div class="intro__faq-list">
+          <details class="intro__faq-item">
+            <summary><span>01</span>The edge-to-cloud architecture behind durable field workflows</summary>
+            <p>Mobile apps absorb chaos at the edge; Temporal handles orchestration in the cloud. Business logic stays safe even when connectivity, GPS, and devices are all failing at once. See exactly how this boundary was drawn, and why it changed everything for on-site operations.</p>
+          </details>
+          <details class="intro__faq-item">
+            <summary><span>02</span>How Entity Workflows turn a worker&rsquo;s day into durable execution</summary>
+            <p>Each technician's shift runs as a long-lived Temporal workflow. Check-ins, task starts, breaks, and check-outs are all signals, logged immutably and enforced in sequence. No task can begin without a safety briefing. No check-out if tools are still signed out. Learn why this model outperforms request/response APIs for human-driven processes.</p>
+          </details>
+          <details class="intro__faq-item" open>
+            <summary><span>03</span>How offline-first syncing works with SignalWithStart</summary>
+            <p>Events queued locally while underground are batched and replayed in exact order the moment connectivity returns, even if the workflow was never started. The state machine lazily initialises and catches up. Offline isn't a failure mode here; it's an expected operating condition.</p>
+          </details>
+          <details class="intro__faq-item">
+            <summary><span>04</span>How to scale 1000s of workflows without overbuilding infrastructure</summary>
+            <p>Temporal's pull-based workers absorb morning spikes naturally. Signals are persisted immediately and pulled as capacity allows. USIS ran thousands of concurrent workflows across hundreds of sites on just five Kubernetes nodes, near 100% utilisation, without a single dropped check-in or auto-scaler in sight.</p>
+          </details>
+          <details class="intro__faq-item">
+            <summary><span>05</span>How to run Temporal with zero-trust security</summary>
+            <p>A Custom Data Converter encrypts every payload before it leaves the on-prem environment. Temporal Cloud orchestrates scheduling and sequencing without ever seeing plaintext. Full managed-service benefits, full data sovereignty: the playbook for any regulated industry adopting Temporal.</p>
+          </details>
+          <details class="intro__faq-item">
+            <summary><span>06</span>What reliability looks like when it becomes a business advantage</summary>
+            <p>Payroll jumped from ~80% to 99%+ accuracy. Tool losses per site dropped from $50k+ to near zero. Compliance records became exportable on demand. Management went from reactive to real-time, with live worker heatmaps, blocker alerts, and months of workflow data for analytics. Each architecture decision tied to a measurable outcome.</p>
+          </details>
+        </div>
       </div>
     </section>
 
@@ -211,6 +217,28 @@
     <a class="floating-pill" href="#"><span class="floating-pill__icon">↓</span><span
         class="floating-pill__text">Download Whitepaper</span></a>
   </main>
+
+  <script>
+    const ALLOW_MULTIPLE_FAQS_OPEN = false;
+
+    if (!ALLOW_MULTIPLE_FAQS_OPEN) {
+      const faqItems = document.querySelectorAll(".intro__faq-item");
+
+      faqItems.forEach((faqItem) => {
+        faqItem.addEventListener("toggle", () => {
+          if (!faqItem.open) {
+            return;
+          }
+
+          faqItems.forEach((otherFaqItem) => {
+            if (otherFaqItem !== faqItem) {
+              otherFaqItem.open = false;
+            }
+          });
+        });
+      });
+    }
+  </script>
 </body>
 
 </html>

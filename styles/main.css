@@ -372,39 +372,90 @@ body {
 /* intro */
 /* --------------------- */
 .intro {
-  background: var(--color-bg-light);
+  background-color: var(--color-bg-light);
+  background-image: url("../img/white-paper-intro-bg-mobile.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media (min-width: 1024px) {
+  .intro {
+    background-image: url("../img/white-paper-intro-bg.jpg");
+  }
 }
 .intro__description {
   font-size: var(--font-18);
   line-height: 1.4;
   margin: clamp(16px, 2vw, 24px) 0;
 }
-.intro__learn-item {
+.intro__faq-list {
+  background: #ffffff;
+  border: 1px solid rgba(18, 18, 18, 0.1);
+  border-radius: 12px;
+  -webkit-box-shadow: 0 16px 40px rgba(18, 18, 18, 0.08);
+          box-shadow: 0 16px 40px rgba(18, 18, 18, 0.08);
+  overflow: hidden;
+  margin: clamp(16px, 2vw, 24px) 0 0;
+}
+.intro__faq-item {
+  border-bottom: 1px solid rgba(18, 18, 18, 0.1);
+}
+.intro__faq-item:last-child {
+  border-bottom: 0;
+}
+.intro__faq-item[open] {
+  background: rgba(154, 52, 181, 0.06);
+}
+.intro__faq-item[open] summary::after {
+  background: var(--color-accent);
+  color: #ffffff;
+  content: "-";
+}
+.intro__faq-item summary {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #ffffff;
-  border-radius: 12px;
+  cursor: pointer;
   display: -ms-grid;
   display: grid;
-  gap: 12px;
-  -ms-grid-columns: 28px 12px 1fr;
-  grid-template-columns: 28px 1fr;
-  padding: 16px;
-}
-.intro__learn-item p {
-  margin: 0;
-}
-.intro__learn-item span {
   font-weight: 700;
-}
-.intro__learn-list {
-  display: -ms-grid;
-  display: grid;
-  gap: 12px;
+  gap: 16px;
+  -ms-grid-columns: 28px 16px 1fr 16px 20px;
+  grid-template-columns: 28px 1fr 20px;
   list-style: none;
-  margin: clamp(16px, 2vw, 24px) 0 0;
-  padding: 0;
+  padding: clamp(16px, 1.078vw + 11.471px, 27px) clamp(16px, 1.961vw + 7.765px, 36px);
+}
+.intro__faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.intro__faq-item summary::after {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  color: var(--color-accent);
+  content: "+";
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 14px;
+  font-weight: 400;
+  height: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  line-height: 1;
+  width: 20px;
+}
+.intro__faq-item span {
+  font-weight: 400;
+}
+.intro__faq-item p {
+  line-height: 1.5;
+  margin: 0;
+  padding: clamp(16px, 1.078vw + 11.471px, 27px) clamp(16px, 1.961vw + 7.765px, 36px);
+  padding-left: calc(clamp(16px, 1.961vw + 7.765px, 36px) + 47px);
 }
 .intro__learn-title {
   font-size: 14px;
