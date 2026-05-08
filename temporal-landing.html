@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Durable Workflows for Harsh-Environment Operations — Temporal in the Field</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #faf9f7;
+    --oat: #dad4c8;
+    --oat-light: #eee9df;
+    --black: #000000;
+    --silver: #9f9b93;
+    --charcoal: #55534e;
+    --dark-charcoal: #333333;
+    --matcha-300: #84e7a5;
+    --matcha-600: #078a52;
+    --matcha-800: #02492a;
+    --slushie-500: #3bd3fd;
+    --slushie-800: #0089ad;
+    --lemon-400: #f8cc65;
+    --lemon-500: #fbbd41;
+    --lemon-700: #d08a11;
+    --ube-300: #c1b0ff;
+    --ube-800: #43089f;
+    --ube-900: #32037d;
+    --pomegranate-400: #fc7981;
+    --blueberry-800: #01418d;
+    --badge-blue-bg: #f0f8ff;
+    --badge-blue-text: #3859f9;
+
+    --font-primary: 'DM Sans', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+
+    --radius-sm: 4px;
+    --radius-md: 12px;
+    --radius-lg: 24px;
+    --radius-xl: 40px;
+    --radius-pill: 1584px;
+
+    --shadow-card: rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px 1px inset, rgba(0,0,0,0.05) 0px -0.5px 1px;
+    --shadow-hover: rgb(0,0,0) -7px 7px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-primary);
+    background: var(--cream);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--oat); border-radius: 3px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(250,249,247,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--oat);
+    padding: 0 48px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--black);
+  }
+  .nav-logo-mark {
+    width: 32px; height: 32px;
+    background: var(--black);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .nav-logo-mark svg { width: 18px; height: 18px; }
+  .nav-logo-text {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+  .nav-logo-sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--silver);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .nav-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--charcoal);
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-link:hover { color: var(--black); background: var(--oat-light); }
+  .nav-cta-wrap {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-left: 8px;
+  }
+  .nav-watch {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black);
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--oat);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 6px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+    background: white;
+    box-shadow: var(--shadow-card);
+  }
+  .nav-watch:hover {
+    background: var(--lemon-500);
+    border-color: var(--lemon-700);
+    transform: rotateZ(-4deg) translateY(-50%);
+    box-shadow: var(--shadow-hover);
+  }
+  .nav-watch .play-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--black);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-watch .play-dot svg { width: 8px; height: 8px; margin-left: 1px; }
+  .btn-nav-primary {
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--black);
+    color: white;
+    padding: 8px 20px;
+    border-radius: var(--radius-pill);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .btn-nav-primary:hover {
+    background: var(--matcha-800);
+    transform: rotateZ(-4deg) translateY(-50%);
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* ─── STICKY CTA BAR ─── */
+  .sticky-cta-bar {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    background: var(--black);
+    border-radius: var(--radius-pill);
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+    opacity: 0;
+    transition: opacity 0.4s, transform 0.4s;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .sticky-cta-bar.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .sticky-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .sticky-divider {
+    width: 1px; height: 20px;
+    background: rgba(255,255,255,0.1);
+  }
+  .sticky-btn {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .sticky-btn-primary {
+    background: white;
+    color: var(--black);
+  }
+  .sticky-btn-primary:hover {
+    transform: rotateZ(-4deg) translateY(-30%);
+    box-shadow: -4px 4px 0 rgba(255,255,255,0.3);
+  }
+  .sticky-btn-secondary {
+    color: rgba(255,255,255,0.6);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .sticky-btn-secondary:hover {
+    background: rgba(255,255,255,0.08);
+    color: white;
+  }
+
+  /* ─── HERO ─── */
+  .hero-section {
+    padding: 80px 48px 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 64px;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--badge-blue-bg);
+    color: var(--badge-blue-text);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(56,89,249,0.2);
+  }
+  .badge-pulse {
+    width: 7px; height: 7px;
+    background: var(--badge-blue-text);
+    border-radius: 50%;
+    animation: badgePulse 2s ease-in-out infinite;
+  }
+  @keyframes badgePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .hero-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--silver);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 72px;
+    align-items: center;
+  }
+  .hero-subheadline {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--matcha-600);
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-subheadline::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--matcha-600);
+  }
+  h1.hero-headline {
+    font-family: var(--font-primary);
+    font-size: 62px;
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -2.5px;
+    color: var(--black);
+    margin-bottom: 28px;
+  }
+  .hero-intro {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--charcoal);
+    margin-bottom: 40px;
+    max-width: 520px;
+    font-weight: 400;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  /* ─── BUTTONS ─── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s, color 0.15s, border-color 0.15s;
+    position: relative;
+  }
+  .btn-black {
+    background: var(--black);
+    color: white;
+    padding: 14px 28px;
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    border: 1px solid transparent;
+  }
+  .btn-black:hover {
+    background: #111;
+    transform: rotateZ(-4deg) translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--black);
+    padding: 14px 28px;
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    border: 1px solid var(--oat);
+    font-weight: 500;
+  }
+  .btn-outline:hover {
+    background: var(--matcha-600);
+    color: white;
+    border-color: var(--matcha-600);
+    transform: rotateZ(-4deg) translateY(-3px);
+    box-shadow: -7px 7px 0 var(--matcha-800);
+  }
+  .btn-white {
+    background: white;
+    color: var(--black);
+    padding: 16px 32px;
+    border-radius: var(--radius-pill);
+    font-size: 15px;
+    border: 1px solid var(--oat);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-white:hover {
+    transform: rotateZ(-4deg) translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+  .btn-ghost-white {
+    background: transparent;
+    color: rgba(255,255,255,0.65);
+    padding: 16px 32px;
+    border-radius: var(--radius-pill);
+    font-size: 15px;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-weight: 500;
+  }
+  .btn-ghost-white:hover {
+    background: rgba(255,255,255,0.08);
+    color: white;
+    border-color: rgba(255,255,255,0.35);
+  }
+  .btn-ube {
+    background: var(--ube-800);
+    color: white;
+    padding: 16px 32px;
+    border-radius: var(--radius-pill);
+    font-size: 15px;
+    border: 1px solid var(--ube-900);
+  }
+  .btn-ube:hover {
+    background: var(--ube-900);
+    transform: rotateZ(-4deg) translateY(-4px);
+    box-shadow: -7px 7px 0 var(--ube-900);
+  }
+
+  .play-icon {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .play-icon svg { width: 9px; height: 9px; margin-left: 1px; }
+
+  /* ─── HERO VISUAL ─── */
+  .hero-visual { position: relative; }
+  .hero-visual-card {
+    background: #0d0d0d;
+    border: 1px solid #222;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+  }
+  .hv-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hv-dots {
+    display: flex; gap: 6px;
+  }
+  .hv-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .hv-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.5px;
+  }
+  .hv-grid-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+  .hv-body { padding: 20px; position: relative; z-index: 1; }
+  .hv-runtime-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--matcha-300);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    opacity: 0.7;
+  }
+  .wf-nodes { display: flex; flex-direction: column; gap: 8px; }
+  .wf-node {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .wf-node:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(132,231,165,0.25);
+  }
+  .wf-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .wf-icon svg { width: 15px; height: 15px; }
+  .wf-info { flex: 1; min-width: 0; }
+  .wf-name {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .wf-status-line {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.3px;
+  }
+  .wf-badge {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .badge-running { background: rgba(7,138,82,0.2); color: var(--matcha-300); border: 1px solid rgba(7,138,82,0.3); }
+  .badge-syncing { background: rgba(251,189,65,0.15); color: var(--lemon-500); border: 1px solid rgba(251,189,65,0.2); }
+  .badge-waiting { background: rgba(59,211,253,0.12); color: var(--slushie-500); border: 1px solid rgba(59,211,253,0.2); }
+  .badge-pending { background: rgba(193,176,255,0.12); color: var(--ube-300); border: 1px solid rgba(193,176,255,0.2); }
+  .badge-escalating { background: rgba(252,121,129,0.12); color: var(--pomegranate-400); border: 1px solid rgba(252,121,129,0.2); }
+
+  .hv-footer {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.025);
+    border: 1px dashed rgba(255,255,255,0.1);
+    border-radius: 10px;
+  }
+  .hv-footer-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .hv-footer-row + .hv-footer-row { margin-top: 4px; }
+  .hv-footer-val { color: var(--matcha-300); }
+
+  .speaker-preview {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+  }
+  .sp-chip {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sp-avatar {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .sp-text { min-width: 0; }
+  .sp-name { font-size: 11px; font-weight: 600; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sp-role { font-family: var(--font-mono); font-size: 9px; color: rgba(255,255,255,0.3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* ─── STATS STRIP ─── */
+  .stats-strip {
+    background: var(--black);
+    padding: 70px 48px;
+  }
+  .stats-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .stat-item {
+    padding: 0 40px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat-item:first-child { padding-left: 0; border-left: none; }
+  .stat-icon-wrap {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat-icon-wrap svg { width: 16px; height: 16px; }
+  .stat-number {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.55;
+    max-width: 160px;
+  }
+
+  /* ─── SECTION SHARED ─── */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--silver);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 20px; height: 1px;
+    background: var(--silver);
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .section-subtitle {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--charcoal);
+    max-width: 580px;
+    font-weight: 400;
+  }
+
+  /* ─── INTRO BLOCK ─── */
+  .intro-section {
+    padding: 100px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+  .intro-text {
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--charcoal);
+    font-weight: 400;
+  }
+  .intro-text p + p { margin-top: 1.4em; }
+  .intro-right { display: flex; flex-direction: column; gap: 20px; }
+  .intro-callout {
+    background: var(--matcha-800);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .intro-callout::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 1px solid rgba(132,231,165,0.15);
+  }
+  .intro-callout::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    border: 1px solid rgba(132,231,165,0.07);
+  }
+  .callout-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--matcha-300);
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+  .callout-text {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: -0.5px;
+    color: white;
+    position: relative;
+    z-index: 1;
+  }
+  .intro-xgrid-card {
+    background: white;
+    border: 1px solid var(--oat);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .xgrid-logo-box {
+    width: 44px; height: 44px;
+    background: var(--black);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .xgrid-logo-box svg { width: 22px; height: 22px; }
+  .xgrid-info { flex: 1; }
+  .xgrid-name { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 3px; }
+  .xgrid-desc { font-size: 13px; color: var(--silver); }
+  .xgrid-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--matcha-600);
+    background: rgba(7,138,82,0.08);
+    border: 1px solid rgba(7,138,82,0.2);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.5px;
+    font-weight: 700;
+  }
+
+  /* ─── SPEAKERS ─── */
+  .speakers-section {
+    padding: 100px 48px;
+    background: var(--oat-light);
+    border-top: 1px solid var(--oat);
+    border-bottom: 1px solid var(--oat);
+  }
+  .speakers-inner { max-width: 1200px; margin: 0 auto; }
+  .speakers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 56px;
+  }
+  .speaker-card {
+    background: white;
+    border: 1px solid var(--oat);
+    border-radius: var(--radius-xl);
+    padding: 44px;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .speaker-card::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: -60px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  .speaker-card:nth-child(1)::after { border: 1px dashed rgba(7,138,82,0.2); }
+  .speaker-card:nth-child(2)::after { border: 1px dashed rgba(67,8,159,0.2); }
+  .speaker-card:hover { transform: translateY(-6px); box-shadow: rgba(0,0,0,0.14) 0px 12px 32px; }
+  .speaker-card:hover::after { opacity: 1; }
+  .speaker-card-top-border {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
+  .speaker-avatar-wrap { margin-bottom: 28px; }
+  .speaker-avatar {
+    width: 64px; height: 64px;
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -1px;
+  }
+  .av-green { background: var(--matcha-300); color: var(--matcha-800); }
+  .av-purple { background: var(--ube-300); color: var(--ube-900); }
+  .speaker-name {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+    margin-bottom: 6px;
+  }
+  .speaker-role {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--silver);
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+  }
+  .speaker-divider {
+    width: 100%; height: 1px;
+    background: var(--oat);
+    margin-bottom: 24px;
+    border: none;
+    border-top: 1px dashed var(--oat);
+  }
+  .speaker-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--charcoal);
+    margin-bottom: 24px;
+  }
+  .speaker-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--oat);
+    background: var(--cream);
+    color: var(--charcoal);
+  }
+
+  /* ─── LEARN SECTION ─── */
+  .learn-section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
+  .learn-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
+  .learn-header-right {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--charcoal);
+  }
+  .learn-accordion {
+    border: 1px solid var(--oat);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: white;
+    box-shadow: var(--shadow-card);
+  }
+  .learn-item {
+    border-bottom: 1px solid var(--oat);
+    cursor: pointer;
+  }
+  .learn-item:last-child { border-bottom: none; }
+  .learn-item-header {
+    padding: 26px 36px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .learn-item-header:hover { background: var(--cream); }
+  .learn-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--silver);
+    width: 24px;
+    flex-shrink: 0;
+  }
+  .learn-item-title {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    flex: 1;
+  }
+  .learn-why {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--matcha-600);
+    background: rgba(7,138,82,0.07);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(7,138,82,0.2);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .learn-toggle {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid var(--oat);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 12px;
+    transition: transform 0.25s, background 0.2s, border-color 0.2s;
+  }
+  .learn-item.open .learn-toggle {
+    transform: rotate(45deg);
+    background: var(--black);
+    border-color: var(--black);
+    color: white;
+  }
+  .learn-body {
+    display: none;
+    padding: 0 36px 28px 80px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--charcoal);
+    border-top: 1px solid var(--oat-light);
+    padding-top: 24px;
+  }
+  .learn-body-inner { padding-bottom: 4px; }
+  .learn-item.open .learn-body { display: block; }
+  .learn-item.open .learn-item-header { background: var(--cream); }
+
+  /* ─── USE CASES ─── */
+  .usecases-section {
+    background: var(--black);
+    padding: 100px 48px;
+  }
+  .usecases-inner { max-width: 1200px; margin: 0 auto; }
+  .usecases-section .section-label { color: rgba(255,255,255,0.3); }
+  .usecases-section .section-label::before { background: rgba(255,255,255,0.3); }
+  .usecases-section .section-title { color: white; margin-bottom: 56px; }
+  .usecases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+  .uc-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .uc-card:hover {
+    background: rgba(255,255,255,0.07);
+    transform: translateY(-3px);
+  }
+  .uc-card-wide { grid-column: span 2; }
+  .uc-card-full { grid-column: span 3; display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: center; }
+  .uc-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .uc-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .uc-icon svg { width: 20px; height: 20px; }
+  .uc-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.4px;
+    margin-bottom: 12px;
+  }
+  .uc-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+  }
+  .uc-connector {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.5px;
+  }
+  .uc-connector-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .uc-connector-line {
+    flex: 1; height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .uc-wide-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .uc-flow-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+  }
+  .uc-flow-step-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .uc-flow-step-label { flex: 1; }
+  .uc-flow-step-val { font-size: 10px; color: rgba(255,255,255,0.25); }
+
+  /* ─── OUTCOMES ─── */
+  .outcomes-section { padding: 100px 48px; background: var(--matcha-800); }
+  .outcomes-inner { max-width: 1200px; margin: 0 auto; }
+  .outcomes-section .section-label { color: var(--matcha-300); }
+  .outcomes-section .section-label::before { background: var(--matcha-300); }
+  .outcomes-section .section-title { color: white; margin-bottom: 56px; }
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .outcome-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    padding: 32px 36px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .outcome-card:hover {
+    background: rgba(255,255,255,0.09);
+    border-color: rgba(132,231,165,0.25);
+  }
+  .outcome-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--matcha-600);
+    border: 1px solid var(--matcha-300);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .outcome-icon svg { width: 14px; height: 14px; }
+  .outcome-text {
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+  }
+
+  /* ─── VIDEO PLAYER ─── */
+  .video-section {
+    padding: 100px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .video-wrapper {
+    background: #0d0d0d;
+    border: 1px solid #222;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16/9;
+    cursor: pointer;
+    margin-top: 56px;
+  }
+  .video-preview-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 50%, #0d1117 100%);
+  }
+  .video-grid {
+    position: absolute; inset: 0;
+    opacity: 0.04;
+    background-image:
+      linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .video-center {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 2;
+  }
+  .video-play-btn {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .video-play-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  }
+  .video-play-btn svg { width: 26px; height: 26px; margin-left: 3px; }
+  .video-episode-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .video-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    letter-spacing: -0.4px;
+    max-width: 500px;
+  }
+  .video-chips {
+    display: flex; gap: 8px;
+    position: absolute;
+    bottom: 24px; left: 24px;
+    z-index: 2;
+  }
+  .video-chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.5);
+    background: rgba(0,0,0,0.4);
+    letter-spacing: 0.5px;
+  }
+  .video-duration {
+    position: absolute;
+    bottom: 24px; right: 24px;
+    z-index: 2;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ─── CTA SECTION ─── */
+  .cta-section {
+    padding: 120px 48px;
+    background: var(--ube-800);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-bg-circles {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .cta-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  .cta-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-left .section-label { color: var(--ube-300); }
+  .cta-left .section-label::before { background: var(--ube-300); }
+  .cta-headline {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    color: white;
+    margin-top: 12px;
+    margin-bottom: 0;
+  }
+  .cta-right { display: flex; flex-direction: column; gap: 20px; }
+  .cta-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: var(--radius-xl);
+    padding: 32px 36px;
+  }
+  .cta-card-title { font-size: 18px; font-weight: 700; color: white; margin-bottom: 10px; letter-spacing: -0.3px; }
+  .cta-card-desc { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.55); margin-bottom: 20px; }
+  .cta-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    background: white;
+    color: var(--ube-800);
+    padding: 10px 22px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .cta-card-btn:hover {
+    transform: rotateZ(-4deg) translateY(-3px);
+    box-shadow: -5px 5px 0 rgba(0,0,0,0.2);
+  }
+  .cta-card-btn-secondary {
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .cta-card-btn-secondary:hover {
+    background: rgba(255,255,255,0.08);
+    color: white;
+    box-shadow: none;
+  }
+  .trust-row {
+    display: flex;
+    gap: 0;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .trust-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    padding: 0 16px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+  .trust-item:first-child { padding-left: 0; border-left: none; }
+  .trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ube-300); flex-shrink: 0; }
+
+  /* ─── CLOSING ─── */
+  .closing-section {
+    background: var(--black);
+    padding: 120px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing-grid-bg {
+    position: absolute; inset: 0;
+    opacity: 0.025;
+    background-image:
+      linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .closing-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .closing-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+  }
+  .closing-eyebrow::before,
+  .closing-eyebrow::after {
+    content: '';
+    display: block;
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+  .closing-text {
+    font-size: 21px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    margin-bottom: 60px;
+  }
+  .closing-ctas {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #050505;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 48px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-left {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .footer-logo {
+    width: 28px; height: 28px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .footer-logo svg { width: 14px; height: 14px; }
+  .footer-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+  }
+  .footer-right {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.5px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .footer-right span { cursor: pointer; transition: color 0.2s; }
+  .footer-right span:hover { color: rgba(255,255,255,0.5); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in {
+    opacity: 0;
+    animation: fadeInUp 0.7s ease forwards;
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.45s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero-section { padding: 60px 24px 80px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    h1.hero-headline { font-size: 42px; }
+    .stats-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .stat-item:nth-child(3) { border-left: none; }
+    .intro-section { grid-template-columns: 1fr; gap: 48px; padding: 60px 24px; }
+    .speakers-section { padding: 60px 24px; }
+    .speakers-grid { grid-template-columns: 1fr; }
+    .learn-section { padding: 60px 24px; }
+    .learn-header { grid-template-columns: 1fr; gap: 20px; }
+    .usecases-section { padding: 60px 24px; }
+    .usecases-grid { grid-template-columns: 1fr; }
+    .uc-card-wide { grid-column: span 1; }
+    .uc-card-full { grid-column: span 1; grid-template-columns: 1fr; }
+    .outcomes-section { padding: 60px 24px; }
+    .outcomes-grid { grid-template-columns: 1fr; }
+    .video-section { padding: 60px 24px; }
+    .cta-section { padding: 60px 24px; }
+    .cta-inner { grid-template-columns: 1fr; gap: 40px; }
+    .closing-section { padding: 80px 24px; }
+    footer { padding: 32px 24px; }
+    .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+    .sticky-cta-bar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY CTA BAR -->
+<div class="sticky-cta-bar" id="stickyCTA">
+  <span class="sticky-label">Temporal in the Field</span>
+  <div class="sticky-divider"></div>
+  <a href="#video" class="sticky-btn sticky-btn-primary">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M5 4L8 6L5 8V4Z" fill="currentColor"/></svg>
+    Watch
+  </a>
+  <a href="#cta" class="sticky-btn sticky-btn-secondary">Book Audit</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="8.25" width="12" height="1.5" rx="0.75" fill="white"/>
+        <rect x="8.25" y="3" width="1.5" height="12" rx="0.75" fill="white"/>
+      </svg>
+    </div>
+    <div>
+      <div class="nav-logo-text">Temporal in the Field</div>
+      <div class="nav-logo-sub">Production Engineering · Xgrid</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#speakers">Speakers</a>
+    <a class="nav-link" href="#learn">Session</a>
+    <a class="nav-link" href="#outcomes">Outcomes</a>
+  </div>
+  <div class="nav-cta-wrap">
+    <a href="#video" class="nav-watch">
+      <div class="play-dot">
+        <svg viewBox="0 0 9 9" fill="none"><path d="M3 2L7 4.5L3 7V2Z" fill="white"/></svg>
+      </div>
+      Watch Podcast
+    </a>
+    <a href="#cta" class="btn-nav-primary">Book Audit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section>
+  <div class="hero-section">
+    <div class="hero-top-bar fade-in">
+      <div class="hero-badge">
+        <span class="badge-pulse"></span>
+        Podcast · Distributed Systems · Production Engineering
+      </div>
+      <div class="hero-meta">Temporal · Xgrid · 2024</div>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <div class="hero-subheadline fade-in delay-1">Temporal in the Field</div>
+        <h1 class="hero-headline fade-in delay-2">Durable Workflows for Harsh-Environment Operations</h1>
+        <p class="hero-intro fade-in delay-3">Building for underground utility tunnels, live industrial facilities, and multi-site construction crews — where connectivity drops, GPS fails, and every missed record is a compliance gap.</p>
+        <div class="hero-ctas fade-in delay-4">
+          <a href="#video" class="btn btn-black">
+            <span class="play-icon">
+              <svg viewBox="0 0 9 9" fill="none"><path d="M2.5 1.5L7.5 4.5L2.5 7.5V1.5Z" fill="white"/></svg>
+            </span>
+            Watch the Podcast
+          </a>
+          <a href="#cta" class="btn btn-outline">Book a Workflow Audit →</a>
+        </div>
+      </div>
+
+      <!-- HERO VISUAL -->
+      <div class="hero-visual fade-in delay-3">
+        <div class="hero-visual-card">
+          <div class="hv-grid-bg"></div>
+          <div class="hv-header">
+            <div class="hv-dots">
+              <div class="hv-dot" style="background:#ff5f57"></div>
+              <div class="hv-dot" style="background:#febc2e"></div>
+              <div class="hv-dot" style="background:#28c840"></div>
+            </div>
+            <div class="hv-title">temporal-runtime · production</div>
+          </div>
+          <div class="hv-body">
+            <div class="hv-runtime-label">5 active workflows · north-american-contractor</div>
+            <div class="wf-nodes">
+              <div class="wf-node">
+                <div class="wf-icon" style="background:rgba(7,138,82,0.15); border:1px solid rgba(7,138,82,0.25)">
+                  <svg viewBox="0 0 15 15" fill="none"><rect x="1.5" y="3.5" width="12" height="8" rx="1.5" stroke="#84e7a5" stroke-width="1.2"/><path d="M4.5 7H10.5M4.5 9H8" stroke="#84e7a5" stroke-width="1.2" stroke-linecap="round"/></svg>
+                </div>
+                <div class="wf-info">
+                  <div class="wf-name">WorkerShiftWorkflow</div>
+                  <div class="wf-status-line">shift_id:W4821 · crew_b · tunnel-3</div>
+                </div>
+                <span class="wf-badge badge-running">RUNNING</span>
+              </div>
+              <div class="wf-node">
+                <div class="wf-icon" style="background:rgba(251,189,65,0.12); border:1px solid rgba(251,189,65,0.2)">
+                  <svg viewBox="0 0 15 15" fill="none"><path d="M7.5 1.5L9 5.5H13.5L10 8L11.5 12L7.5 9.5L3.5 12L5 8L1.5 5.5H6L7.5 1.5Z" stroke="#fbbd41" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="wf-info">
+                  <div class="wf-name">BurstEventHandler</div>
+                  <div class="wf-status-line">47 events queued · reconnect detected</div>
+                </div>
+                <span class="wf-badge badge-syncing">SYNCING</span>
+              </div>
+              <div class="wf-node">
+                <div class="wf-icon" style="background:rgba(193,176,255,0.12); border:1px solid rgba(193,176,255,0.2)">
+                  <svg viewBox="0 0 15 15" fill="none"><path d="M3 10.5V4.5L7.5 2L12 4.5V10.5" stroke="#c1b0ff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V7.5H9.5V10.5" stroke="#c1b0ff" stroke-width="1.2" stroke-linecap="round"/></svg>
+                </div>
+                <div class="wf-info">
+                  <div class="wf-name">DocumentSigningCoord</div>
+                  <div class="wf-status-line">permit_2849 · 2/3 signatories complete</div>
+                </div>
+                <span class="wf-badge badge-pending">PENDING</span>
+              </div>
+              <div class="wf-node">
+                <div class="wf-icon" style="background:rgba(252,121,129,0.1); border:1px solid rgba(252,121,129,0.2)">
+                  <svg viewBox="0 0 15 15" fill="none"><path d="M7.5 1.5L7.5 4.5M7.5 4.5C5.5 4.5 4 6 4 8C4 9 4.5 9.8 5.5 10.5H9.5C10.5 9.8 11 9 11 8C11 6 9.5 4.5 7.5 4.5Z" stroke="#fc7981" stroke-width="1.2" stroke-linecap="round"/><path d="M6 12.5H9" stroke="#fc7981" stroke-width="1.2" stroke-linecap="round"/></svg>
+                </div>
+                <div class="wf-info">
+                  <div class="wf-name">SafetyEscalationFlow</div>
+                  <div class="wf-status-line">inspection_701 · parallel timers active</div>
+                </div>
+                <span class="wf-badge badge-escalating">ESCALATING</span>
+              </div>
+              <div class="wf-node">
+                <div class="wf-icon" style="background:rgba(59,211,253,0.1); border:1px solid rgba(59,211,253,0.2)">
+                  <svg viewBox="0 0 15 15" fill="none"><path d="M3 11L5 9M5 9C5 9 4.5 7 6 5.5C7.5 4 10 4 11 5C12 6 12 8 10.5 9.5C9 11 7 10.5 7 10.5M5 9L7 7" stroke="#3bd3fd" stroke-width="1.2" stroke-linecap="round"/></svg>
+                </div>
+                <div class="wf-info">
+                  <div class="wf-name">NotificationOrchestrator</div>
+                  <div class="wf-status-line">push + sms + email · dedup active</div>
+                </div>
+                <span class="wf-badge badge-waiting">WAITING</span>
+              </div>
+            </div>
+            <div class="hv-footer">
+              <div class="hv-footer-row">
+                <span>RUNTIME</span>
+                <span class="hv-footer-val">temporal-cloud · us-east-1</span>
+              </div>
+              <div class="hv-footer-row">
+                <span>UPTIME</span>
+                <span class="hv-footer-val">99.98% · 47d 12h 03m</span>
+              </div>
+              <div class="hv-footer-row">
+                <span>DATA LOSS</span>
+                <span style="color: var(--matcha-300)">ZERO EVENTS</span>
+              </div>
+            </div>
+            <div class="speaker-preview">
+              <div class="sp-chip">
+                <div class="sp-avatar" style="background:rgba(132,231,165,0.15); color:var(--matcha-300)">SI</div>
+                <div class="sp-text">
+                  <div class="sp-name">Sidra Irshad</div>
+                  <div class="sp-role">Sr. Development Manager</div>
+                </div>
+              </div>
+              <div class="sp-chip">
+                <div class="sp-avatar" style="background:rgba(193,176,255,0.15); color:var(--ube-300)">AI</div>
+                <div class="sp-text">
+                  <div class="sp-name">Anees Iqbal</div>
+                  <div class="sp-role">Sr. Technical Lead</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<section class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-icon-wrap" style="background:rgba(132,231,165,0.1); border-color:rgba(132,231,165,0.2)">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="5" height="5" rx="1.5" stroke="#84e7a5" stroke-width="1.2"/><rect x="9" y="3" width="5" height="5" rx="1.5" stroke="#84e7a5" stroke-width="1.2"/><rect x="2" y="10" width="5" height="3" rx="1.5" stroke="#84e7a5" stroke-width="1.2"/><rect x="9" y="10" width="5" height="3" rx="1.5" stroke="#84e7a5" stroke-width="1.2"/></svg>
+      </div>
+      <div class="stat-number" style="color:var(--matcha-300)">5</div>
+      <div class="stat-label">Production Use Cases Covered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon-wrap" style="background:rgba(251,189,65,0.1); border-color:rgba(251,189,65,0.2)">
+        <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="#fbbd41" stroke-width="1.2"/><path d="M8 5V8L10 10" stroke="#fbbd41" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="stat-number" style="color:var(--lemon-500)">0</div>
+      <div class="stat-label">Data Loss Workflow Architecture</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon-wrap" style="background:rgba(59,211,253,0.1); border-color:rgba(59,211,253,0.2)">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M2 13L6 9L9 12L14 5" stroke="#3bd3fd" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="stat-number" style="color:var(--slushie-500)">15m</div>
+      <div class="stat-label">Cron Replaced with Real-Time Execution</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon-wrap" style="background:rgba(193,176,255,0.1); border-color:rgba(193,176,255,0.2)">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M3 8L6.5 11.5L13 5" stroke="#c1b0ff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="stat-number" style="color:var(--ube-300)">Audit</div>
+      <div class="stat-label">Ready System Design</div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO BLOCK -->
+<section>
+  <div class="intro-section">
+    <div class="intro-text">
+      <p>Building software for office environments is one thing. Building it for underground utility tunnels, live industrial facilities, and multi-site construction crews is something else entirely. Connectivity drops. GPS fails indoors. Workers are gloved, moving, and cannot retry a failed request.</p>
+      <p>And every missed record — a check-in, a signed permit, a corrective action — is not just a bug. It is a compliance gap, a payroll dispute, or a safety audit that cannot close.</p>
+      <p>In this podcast, Sidra Irshad (Senior Development Manager, Xgrid) and Anees Iqbal (Senior Technical Lead, Xgrid) walk through how they modernised the workforce management system for a large North American construction contractor using Temporal — covering five production use cases and the engineering decisions behind each one.</p>
+    </div>
+    <div class="intro-right">
+      <div class="intro-callout">
+        <div class="callout-label">Engineering Context</div>
+        <div class="callout-text">Real-world failure modes demand deterministic systems — not best-effort retries and manual reconciliation after the fact.</div>
+      </div>
+      <div class="intro-xgrid-card">
+        <div class="xgrid-logo-box">
+          <svg viewBox="0 0 22 22" fill="none"><path d="M4 4L11 11M18 4L11 11M11 11L4 18M11 11L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="xgrid-info">
+          <div class="xgrid-name">Xgrid Engineering</div>
+          <div class="xgrid-desc">North American Construction Contractor</div>
+        </div>
+        <div class="xgrid-tag">Temporal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKERS -->
+<section id="speakers" class="speakers-section">
+  <div class="speakers-inner">
+    <div class="section-label">Meet the Engineers</div>
+    <div class="section-title" style="max-width:560px">Two Practitioners. One Production System.</div>
+    <div class="speakers-grid">
+      <div class="speaker-card">
+        <div class="speaker-card-top-border" style="background:var(--matcha-600)"></div>
+        <div class="speaker-avatar-wrap">
+          <div class="speaker-avatar av-green">SI</div>
+        </div>
+        <div class="speaker-name">Sidra Irshad</div>
+        <div class="speaker-role">Senior Development Manager · Xgrid</div>
+        <hr class="speaker-divider">
+        <div class="speaker-desc">Leads complex system modernisation initiatives at scale, specialising in transforming unreliable, real-world operations into deterministic, production-grade architectures.</div>
+        <div class="speaker-tags">
+          <span class="tag">System Modernisation</span>
+          <span class="tag">Engineering Leadership</span>
+          <span class="tag">Production Architecture</span>
+        </div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-card-top-border" style="background:var(--ube-800)"></div>
+        <div class="speaker-avatar-wrap">
+          <div class="speaker-avatar av-purple">AI</div>
+        </div>
+        <div class="speaker-name">Anees Iqbal</div>
+        <div class="speaker-role">Senior Technical Lead · Xgrid</div>
+        <hr class="speaker-divider">
+        <div class="speaker-desc">Designs and implements resilient distributed systems, with deep expertise in workflow orchestration, failure handling, and production reliability in harsh environments.</div>
+        <div class="speaker-tags">
+          <span class="tag">Workflow Orchestration</span>
+          <span class="tag">Failure Handling</span>
+          <span class="tag">Temporal</span>
+          <span class="tag">Distributed Systems</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU WILL LEARN -->
+<section id="learn">
+  <div class="learn-section">
+    <div class="learn-header">
+      <div>
+        <div class="section-label">Session Breakdown</div>
+        <div class="section-title">What You Will Learn in This Session</div>
+      </div>
+      <div class="learn-header-right">Five production use cases dissected by the engineers who built and shipped them. Each section covers the problem, the architectural decision, and the production outcome — with no hand-waving.</div>
+    </div>
+    <div class="learn-accordion">
+      <div class="learn-item" onclick="toggleLearn(this)">
+        <div class="learn-item-header">
+          <span class="learn-num">01</span>
+          <span class="learn-item-title">Modelling the Worker Shift as a Single Durable Workflow</span>
+          <span class="learn-why">Prevents data drift</span>
+          <span class="learn-toggle">+</span>
+        </div>
+        <div class="learn-body">
+          <div class="learn-body-inner">How to represent a complete worker shift — from clock-in to sign-off — as a single long-running workflow that survives connectivity loss, app restarts, and server failures. The workflow owns the lifecycle and ensures every event is accounted for in the correct sequence, without relying on external coordination.</div>
+        </div>
+      </div>
+      <div class="learn-item" onclick="toggleLearn(this)">
+        <div class="learn-item-header">
+          <span class="learn-num">02</span>
+          <span class="learn-item-title">Handling Burst Events and Offline Sync</span>
+          <span class="learn-why">Solves reconnection chaos</span>
+          <span class="learn-toggle">+</span>
+        </div>
+        <div class="learn-body">
+          <div class="learn-body-inner">What happens when a worker returns to connectivity after working offline — and forty-seven buffered events arrive at once, out of order. How to handle burst ingestion without creating coherence gaps or duplicate records, and how Temporal signals provide ordered, exactly-once processing for each event batch.</div>
+        </div>
+      </div>
+      <div class="learn-item" onclick="toggleLearn(this)">
+        <div class="learn-item-header">
+          <span class="learn-num">03</span>
+          <span class="learn-item-title">Document Signing with Multi-Signatory Coordination</span>
+          <span class="learn-why">No manual chasing</span>
+          <span class="learn-toggle">+</span>
+        </div>
+        <div class="learn-body">
+          <div class="learn-body-inner">Managing permit-to-work and safety-critical documents that require sign-off from multiple parties across different locations and roles. How to orchestrate parallel signature requests, handle partial completions, and ensure the workflow only advances when all required conditions are met — without polling or manual follow-up.</div>
+        </div>
+      </div>
+      <div class="learn-item" onclick="toggleLearn(this)">
+        <div class="learn-item-header">
+          <span class="learn-num">04</span>
+          <span class="learn-item-title">Safety Inspection Escalation with Evidence Validation</span>
+          <span class="learn-why">Real-time vs cron</span>
+          <span class="learn-toggle">+</span>
+        </div>
+        <div class="learn-body">
+          <div class="learn-body-inner">How to replace a fifteen-minute cron escalation loop with a parallel-timer workflow that escalates through supervisors, managers, and safety officers simultaneously — and cancels immediately the moment any action is taken on any channel, without the rest of the timers continuing to fire.</div>
+        </div>
+      </div>
+      <div class="learn-item" onclick="toggleLearn(this)">
+        <div class="learn-item-header">
+          <span class="learn-num">05</span>
+          <span class="learn-item-title">Notification Orchestration Across Channels</span>
+          <span class="learn-why">One source of truth</span>
+          <span class="learn-toggle">+</span>
+        </div>
+        <div class="learn-body">
+          <div class="learn-body-inner">Delivering time-sensitive notifications across push, SMS, and email in a way that tracks delivery state, handles channel failures gracefully, and avoids duplicate notifications when the same message goes out via multiple routes. How to build a single notification workflow that owns the entire delivery lifecycle.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="usecases-section">
+  <div class="usecases-inner">
+    <div class="section-label">Inside the System</div>
+    <div class="section-title">Real Production Scenarios</div>
+    <div class="usecases-grid">
+      <!-- Card 1 -->
+      <div class="uc-card">
+        <div class="uc-num">Use Case · 01</div>
+        <div class="uc-icon" style="background:rgba(7,138,82,0.12)">
+          <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="10" rx="2" stroke="#84e7a5" stroke-width="1.4"/><path d="M7 9H13M7 12H10" stroke="#84e7a5" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="uc-title">Worker Lifecycle Workflow</div>
+        <div class="uc-desc">Clock-in through sign-off as a single durable entity. Every state transition recorded, survives connectivity loss, no gaps or duplicates.</div>
+        <div class="uc-connector">
+          <span class="uc-connector-dot" style="background:var(--matcha-600)"></span>
+          <span class="uc-connector-line"></span>
+          Temporal Workflow
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="uc-card">
+        <div class="uc-num">Use Case · 02</div>
+        <div class="uc-icon" style="background:rgba(251,189,65,0.1)">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 2L12 8H18L13 11L15 17L10 14L5 17L7 11L2 8H8L10 2Z" stroke="#fbbd41" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="uc-title">Burst Event Handling</div>
+        <div class="uc-desc">47 buffered events, ordered signal processing, zero coherence gaps. Exactly-once delivery regardless of reconnection timing.</div>
+        <div class="uc-connector">
+          <span class="uc-connector-dot" style="background:var(--lemon-500)"></span>
+          <span class="uc-connector-line"></span>
+          Signal Queue
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="uc-card">
+        <div class="uc-num">Use Case · 03</div>
+        <div class="uc-icon" style="background:rgba(193,176,255,0.1)">
+          <svg viewBox="0 0 20 20" fill="none"><rect x="4" y="3" width="12" height="14" rx="2" stroke="#c1b0ff" stroke-width="1.4"/><path d="M7 7H13M7 10H13M7 13H10" stroke="#c1b0ff" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="uc-title">Document Coordination</div>
+        <div class="uc-desc">Parallel signature collection from multiple parties. Advances only when all sign. No polling, no manual follow-up.</div>
+        <div class="uc-connector">
+          <span class="uc-connector-dot" style="background:var(--ube-300)"></span>
+          <span class="uc-connector-line"></span>
+          Parallel Activities
+        </div>
+      </div>
+      <!-- Card 4 — wide -->
+      <div class="uc-card uc-card-full">
+        <div>
+          <div class="uc-num">Use Case · 04</div>
+          <div class="uc-icon" style="background:rgba(252,121,129,0.1)">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M10 2L10 6M10 6C7.5 6 5.5 8 5.5 10.5C5.5 12 6.5 13 7.5 14H12.5C13.5 13 14.5 12 14.5 10.5C14.5 8 12.5 6 10 6Z" stroke="#fc7981" stroke-width="1.4" stroke-linecap="round"/><path d="M8 16.5H12" stroke="#fc7981" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </div>
+          <div class="uc-title">Safety Escalation</div>
+          <div class="uc-desc">Parallel timers escalate supervisor → manager → safety officer simultaneously. Cancels the moment action is taken on any channel. No ghost notifications, no 15-minute lag.</div>
+          <div class="uc-connector">
+            <span class="uc-connector-dot" style="background:var(--pomegranate-400)"></span>
+            <span class="uc-connector-line"></span>
+            Timer Cancellation
+          </div>
+        </div>
+        <div class="uc-wide-visual">
+          <div class="uc-flow-step"><span class="uc-flow-step-dot" style="background:var(--pomegranate-400)"></span><span class="uc-flow-step-label">Inspection flagged</span><span class="uc-flow-step-val">T+0s</span></div>
+          <div class="uc-flow-step"><span class="uc-flow-step-dot" style="background:var(--lemon-500)"></span><span class="uc-flow-step-label">Supervisor timer started</span><span class="uc-flow-step-val">T+0s</span></div>
+          <div class="uc-flow-step"><span class="uc-flow-step-dot" style="background:var(--lemon-500)"></span><span class="uc-flow-step-label">Manager timer started</span><span class="uc-flow-step-val">T+0s</span></div>
+          <div class="uc-flow-step"><span class="uc-flow-step-dot" style="background:var(--lemon-500)"></span><span class="uc-flow-step-label">Safety officer timer started</span><span class="uc-flow-step-val">T+0s</span></div>
+          <div class="uc-flow-step"><span class="uc-flow-step-dot" style="background:var(--matcha-300)"></span><span class="uc-flow-step-label">Action taken via SMS</span><span class="uc-flow-step-val">T+4m 12s</span></div>
+          <div class="uc-flow-step"><span class="uc-flow-step-dot" style="background:var(--matcha-600)"></span><span class="uc-flow-step-label">All timers cancelled</span><span class="uc-flow-step-val">T+4m 12s</span></div>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="uc-card uc-card-wide">
+        <div class="uc-num">Use Case · 05</div>
+        <div class="uc-icon" style="background:rgba(59,211,253,0.1)">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M4 15L7 12M7 12C7 12 6.5 9.5 8.5 7.5C10.5 5.5 13.5 5.5 15 7C16.5 8.5 16.5 11.5 14.5 13C12.5 14.5 10 14 10 14M7 12L10 9" stroke="#3bd3fd" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="uc-title">Notification Orchestration</div>
+        <div class="uc-desc">Push, SMS, and email delivery tracked as a single workflow. One source of truth for delivery state. Channel failures handled in-workflow — deduplication and audit trail built in, not bolted on.</div>
+        <div class="uc-connector">
+          <span class="uc-connector-dot" style="background:var(--slushie-500)"></span>
+          <span class="uc-connector-line"></span>
+          Multi-Channel · Deduplication · Audit Trail
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section id="outcomes" class="outcomes-section">
+  <div class="outcomes-inner">
+    <div class="section-label">What This Means in Production</div>
+    <div class="section-title">Real-World Outcomes Covered in This Discussion</div>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <div class="outcome-icon">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="outcome-text">Eliminated coherence gaps in shift records caused by burst events arriving out of sequence after reconnection.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-icon">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="outcome-text">Replaced a fifteen-minute cron escalation loop with a parallel-timer workflow that stops the moment action is taken — regardless of which channel it came through.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-icon">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="outcome-text">Built a verifiable, tamper-evident workflow history that satisfies regulatory audit requirements without separate reporting infrastructure.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-icon">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="outcome-text">Reduced manual reconciliation caused by unreliable webhooks in certification and eligibility management.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO PLAYER -->
+<section id="video">
+  <div class="video-section">
+    <div class="section-label">Watch the Session</div>
+    <div class="section-title" style="max-width:540px">Five Use Cases. One Production System. Zero Hand-Waving.</div>
+    <div class="video-wrapper" id="videoWrapper" onclick="playVideo()">
+      <div class="video-preview-bg"></div>
+      <div class="video-grid"></div>
+      <div class="video-center" id="videoPlaceholder">
+        <div class="video-episode-label">Temporal in the Field · Full Session</div>
+        <button class="video-play-btn" onclick="playVideo()">
+          <svg viewBox="0 0 26 26" fill="none"><path d="M8 5L21 13L8 21V5Z" fill="black"/></svg>
+        </button>
+        <div class="video-title">Durable Workflows for Harsh-Environment Operations</div>
+      </div>
+      <div class="video-chips">
+        <span class="video-chip">Temporal</span>
+        <span class="video-chip">Distributed Systems</span>
+        <span class="video-chip">Production Engineering</span>
+      </div>
+      <div class="video-duration">Full Session</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="cta-section">
+  <div class="cta-bg-circles">
+    <div class="cta-circle" style="width:600px;height:600px;top:-200px;right:-150px;"></div>
+    <div class="cta-circle" style="width:400px;height:400px;top:-100px;right:-50px;"></div>
+    <div class="cta-circle" style="width:200px;height:200px;bottom:50px;left:100px;"></div>
+  </div>
+  <div class="cta-inner">
+    <div class="cta-left">
+      <div class="section-label">Workflow Reliability Review</div>
+      <h2 class="cta-headline">Review Your Workflows Before They Break in Production</h2>
+    </div>
+    <div class="cta-right">
+      <div class="cta-card">
+        <div class="cta-card-title">Book a Workflow Audit</div>
+        <div class="cta-card-desc">Talk to the engineers who built and shipped these systems. Bring your architecture, get direct feedback on failure modes and resilience gaps.</div>
+        <a href="#" class="cta-card-btn">
+          Book a Workflow Audit
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+      <div class="cta-card">
+        <div class="cta-card-title">Schedule a Strategy Session</div>
+        <div class="cta-card-desc">Longer format, focused on your system architecture. Walk through how Temporal applies to your specific operational environment.</div>
+        <a href="#" class="cta-card-btn cta-card-btn-secondary">Schedule a Strategy Session →</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-dot"></span>Used in production systems</div>
+        <div class="trust-item"><span class="trust-dot"></span>Built for real-world conditions</div>
+        <div class="trust-item"><span class="trust-dot"></span>By engineers who shipped it</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing-section">
+  <div class="closing-grid-bg"></div>
+  <div class="closing-inner">
+    <div class="closing-eyebrow">The Bottom Line</div>
+    <p class="closing-text">Distributed complexity does not disappear when you ignore it. It moves somewhere harder to find — into support queues, manual overrides, and safety notification channels that supervisors have learned to tune out. This podcast is for engineering teams building systems where conditions are not ideal, failure has real consequences, and the answer is giving complexity a proper home with a runtime that survives the environment you are actually operating in.</p>
+    <div class="closing-ctas">
+      <a href="#video" class="btn btn-white">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="black" stroke-width="1.2"/><path d="M6.5 5.5L11 8L6.5 10.5V5.5Z" fill="black"/></svg>
+        Watch the Podcast
+      </a>
+      <a href="#cta" class="btn btn-ghost-white">Book a Workflow Audit →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-logo">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2.5" y="6.25" width="9" height="1.5" rx="0.75" fill="rgba(255,255,255,0.6)"/><rect x="6.25" y="2.5" width="1.5" height="9" rx="0.75" fill="rgba(255,255,255,0.6)"/></svg>
+      </div>
+      <div class="footer-text">Temporal in the Field · Xgrid Engineering · Production Systems</div>
+    </div>
+    <div class="footer-right">
+      <span>temporal.io</span>
+      <span>xgrid.co</span>
+      <span>© 2024</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Accordion
+  function toggleLearn(el) {
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.learn-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) el.classList.add('open');
+  }
+
+  // Sticky CTA bar
+  const stickyCTA = document.getElementById('stickyCTA');
+  const heroSection = document.querySelector('.hero-section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        stickyCTA.classList.add('visible');
+      } else {
+        stickyCTA.classList.remove('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  if (heroSection) observer.observe(heroSection);
+
+  // Video placeholder
+  function playVideo() {
+    const wrapper = document.getElementById('videoWrapper');
+    const placeholder = document.getElementById('videoPlaceholder');
+    placeholder.style.opacity = '0';
+    placeholder.style.transition = 'opacity 0.3s';
+    setTimeout(() => {
+      wrapper.innerHTML = `
+        <iframe
+          style="width:100%;height:100%;border:none;"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+          allow="autoplay; fullscreen"
+          allowfullscreen
+        ></iframe>`;
+    }, 300);
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.uc-card, .outcome-card, .speaker-card');
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = entry.target.style.transform || 'translateY(0)';
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    revealObserver.observe(el);
+  });
+</script>
+</body>
+</html>
