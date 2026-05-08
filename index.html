@@ -5,12 +5,71 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Temporal Whitepaper Landing Page</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="styles/main.css" />
 </head>
 
 <body>
   <main class="whitepaper-page">
+    <header class="site-header" aria-label="Top header">
+      <div class="container site-header__inner">
+        <div class="site-header__logos">
+          <a class="site-header__brand" href="https://www.xgrid.co/" aria-label="Xgrid and Temporal">
+            <svg width="104" height="38" viewBox="0 0 104 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.59235 17.6768L17.0143 28.6657H23.5039L11.803 13.4921L8.59235 17.6768Z" fill="black" />
+              <path d="M23.5442 6.6478L11.8176 21.8723L8.59235 17.6771L17.0546 6.6478H23.5442Z" fill="black" />
+              <path d="M0.000366211 28.6662L7.70159 18.8565L10.9268 23.0517L6.48995 28.6662H0.000366211Z"
+                fill="black" />
+              <path d="M0.000305176 6.64792L7.70153 16.4575L10.9268 12.2624L6.48989 6.64792H0.000305176Z"
+                fill="black" />
+              <path
+                d="M35.9117 13.6243H37.489V28.7289C37.489 30.0646 37.2332 31.2109 36.7216 32.1676C36.2196 33.1244 35.5044 33.8586 34.576 34.3701C33.6571 34.8816 32.5725 35.1374 31.322 35.1374C30.6874 35.1374 30.0337 35.0379 29.3611 34.839C28.698 34.6495 28.0681 34.3559 27.4713 33.958C26.8839 33.5696 26.3819 33.0865 25.9651 32.5087L26.9171 31.4714C27.5423 32.2292 28.2102 32.7834 28.9206 33.1339C29.6311 33.4938 30.3984 33.6738 31.2226 33.6738C32.1983 33.6738 33.0224 33.4796 33.695 33.0912C34.3771 32.7028 34.8934 32.1439 35.2439 31.4145C35.6038 30.6851 35.7838 29.8089 35.7838 28.7858V17.0061L35.9117 13.6243ZM25.1125 21.4679V21.1695C25.1125 19.9759 25.2451 18.9007 25.5104 17.9439C25.7851 16.9777 26.1782 16.1535 26.6898 15.4715C27.2013 14.78 27.8218 14.2542 28.5512 13.8942C29.2901 13.5248 30.1237 13.3401 31.0521 13.3401C31.9425 13.3401 32.7335 13.4869 33.425 13.7806C34.1166 14.0742 34.7134 14.4958 35.2154 15.0452C35.7175 15.5946 36.1201 16.2483 36.4232 17.0061C36.7359 17.764 36.9632 18.607 37.1053 19.5354V23.3293C36.9916 24.2008 36.7832 25.0013 36.4801 25.7307C36.1769 26.4507 35.7743 27.0806 35.2723 27.6206C34.7702 28.1511 34.1639 28.5632 33.4535 28.8568C32.7525 29.141 31.9425 29.2831 31.0236 29.2831C30.1048 29.2831 29.2806 29.0936 28.5512 28.7147C27.8218 28.3358 27.2013 27.8006 26.6898 27.1091C26.1782 26.4081 25.7851 25.5792 25.5104 24.6224C25.2451 23.6656 25.1125 22.6141 25.1125 21.4679ZM26.8176 21.1695V21.4679C26.8176 22.3678 26.9076 23.2014 27.0876 23.9688C27.2676 24.7361 27.5423 25.4039 27.9118 25.9723C28.2812 26.5407 28.7501 26.9859 29.3185 27.308C29.8869 27.6301 30.5547 27.7911 31.322 27.7911C32.2978 27.7911 33.1172 27.6064 33.7803 27.2369C34.4434 26.858 34.9691 26.3607 35.3575 25.7449C35.7459 25.1197 36.0301 24.4377 36.2101 23.6988V19.2796C36.1059 18.7776 35.9449 18.266 35.727 17.745C35.5186 17.224 35.2249 16.7456 34.846 16.3099C34.4765 15.8646 34.0029 15.5094 33.425 15.2441C32.8567 14.9694 32.1651 14.8321 31.3505 14.8321C30.5737 14.8321 29.8964 14.9931 29.3185 15.3152C28.7501 15.6373 28.2812 16.0872 27.9118 16.6651C27.5423 17.2335 27.2676 17.9013 27.0876 18.6686C26.9076 19.4359 26.8176 20.2696 26.8176 21.1695ZM42.4634 16.1678V28.9989H40.7725V13.6243H42.4208L42.4634 16.1678ZM47.9056 13.5106L47.863 15.0736C47.6735 15.0452 47.4888 15.0215 47.3088 15.0026C47.1289 14.9836 46.9347 14.9742 46.7262 14.9742C45.9874 14.9742 45.3385 15.1115 44.7796 15.3862C44.2301 15.6515 43.7659 16.0257 43.387 16.5088C43.0081 16.9824 42.7192 17.5413 42.5202 18.1855C42.3213 18.8202 42.2076 19.5022 42.1792 20.2317L41.554 20.4732C41.554 19.4691 41.6582 18.536 41.8666 17.674C42.075 16.8119 42.3924 16.0588 42.8186 15.4147C43.2544 14.761 43.7991 14.2542 44.4527 13.8942C45.1158 13.5248 45.8926 13.3401 46.7831 13.3401C47.001 13.3401 47.2141 13.359 47.4225 13.3969C47.6404 13.4253 47.8014 13.4632 47.9056 13.5106ZM51.3028 13.6243V28.9989H49.6119V13.6243H51.3028ZM49.3135 9.1909C49.3135 8.85935 49.413 8.58463 49.6119 8.36675C49.8203 8.1394 50.1092 8.02573 50.4787 8.02573C50.8292 8.02573 51.1086 8.1394 51.317 8.36675C51.5349 8.58463 51.6439 8.85935 51.6439 9.1909C51.6439 9.49404 51.5349 9.75928 51.317 9.98663C51.1086 10.2045 50.8292 10.3135 50.4787 10.3135C50.1092 10.3135 49.8203 10.2045 49.6119 9.98663C49.413 9.75928 49.3135 9.49404 49.3135 9.1909ZM64.7746 26.0149V7.17316H66.4797V28.9989H64.8882L64.7746 26.0149ZM54.1032 21.4679V21.1695C54.1032 19.9759 54.2406 18.9007 54.5153 17.9439C54.79 16.9777 55.1832 16.1535 55.6947 15.4715C56.2157 14.78 56.8409 14.2542 57.5704 13.8942C58.2998 13.5248 59.1239 13.3401 60.0428 13.3401C60.9427 13.3401 61.7385 13.4869 62.43 13.7806C63.1215 14.0742 63.7136 14.4958 64.2062 15.0452C64.7082 15.5946 65.1108 16.2483 65.414 17.0061C65.7266 17.764 65.9539 18.607 66.096 19.5354V23.3293C65.9824 24.2008 65.774 25.0013 65.4708 25.7307C65.1677 26.4507 64.7651 27.0806 64.263 27.6206C63.7609 28.1511 63.1547 28.5632 62.4442 28.8568C61.7432 29.141 60.9333 29.2831 60.0144 29.2831C59.105 29.2831 58.2856 29.0936 57.5561 28.7147C56.8267 28.3358 56.2062 27.8006 55.6947 27.1091C55.1832 26.4081 54.79 25.5792 54.5153 24.6224C54.2406 23.6656 54.1032 22.6141 54.1032 21.4679ZM55.8084 21.1695V21.4679C55.8084 22.3678 55.8984 23.2014 56.0784 23.9688C56.2583 24.7361 56.5331 25.4039 56.9025 25.9723C57.272 26.5407 57.7409 26.9859 58.3092 27.308C58.8776 27.6301 59.5502 27.7911 60.327 27.7911C61.3027 27.7911 62.1221 27.6064 62.7852 27.2369C63.4483 26.858 63.9788 26.3607 64.3767 25.7449C64.7746 25.1197 65.0635 24.4377 65.2435 23.6988V19.2796C65.1298 18.7776 64.964 18.266 64.7461 17.745C64.5283 17.224 64.2299 16.7456 63.8509 16.3099C63.4815 15.8646 63.0078 15.5094 62.43 15.2441C61.8616 14.9694 61.1701 14.8321 60.3554 14.8321C59.5692 14.8321 58.8918 14.9931 58.3235 15.3152C57.7551 15.6373 57.2814 16.0872 56.9025 16.6651C56.5331 17.2335 56.2583 17.9013 56.0784 18.6686C55.8984 19.4359 55.8084 20.2696 55.8084 21.1695ZM69.6353 27.9616C69.6353 27.6301 69.7395 27.3506 69.9479 27.1233C70.1658 26.8864 70.4595 26.768 70.8289 26.768C71.2078 26.768 71.5062 26.8817 71.7241 27.1091C71.942 27.3364 72.0509 27.6206 72.0509 27.9616C72.0509 28.2837 71.942 28.5584 71.7241 28.7858C71.5062 29.0131 71.2078 29.1268 70.8289 29.1268C70.4595 29.1268 70.1658 29.0131 69.9479 28.7858C69.7395 28.5584 69.6353 28.2837 69.6353 27.9616ZM81.2598 27.8195C81.9798 27.8195 82.6523 27.6869 83.2776 27.4217C83.9123 27.1469 84.4333 26.7443 84.8406 26.2139C85.2574 25.6739 85.4942 25.0155 85.5511 24.2387H87.171C87.1236 25.2145 86.8252 26.086 86.2758 26.8533C85.7358 27.6111 85.0253 28.2079 84.1443 28.6437C83.2728 29.07 82.3113 29.2831 81.2598 29.2831C80.1894 29.2831 79.2421 29.0889 78.4179 28.7005C77.6032 28.3121 76.9212 27.7722 76.3718 27.0806C75.8223 26.3796 75.4055 25.565 75.1213 24.6366C74.8466 23.6988 74.7093 22.6899 74.7093 21.61V21.0132C74.7093 19.9333 74.8466 18.9291 75.1213 18.0008C75.4055 17.063 75.8223 16.2483 76.3718 15.5567C76.9212 14.8557 77.6032 14.3111 78.4179 13.9227C79.2326 13.5343 80.1752 13.3401 81.2456 13.3401C82.3445 13.3401 83.3297 13.5627 84.2012 14.0079C85.0822 14.4531 85.7832 15.0831 86.3042 15.8978C86.8347 16.7125 87.1236 17.6787 87.171 18.7965H85.5511C85.5037 17.9724 85.2858 17.2619 84.8974 16.6651C84.5091 16.0683 83.9975 15.6089 83.3628 15.2868C82.7281 14.9647 82.0224 14.8036 81.2456 14.8036C80.3741 14.8036 79.6305 14.9742 79.0147 15.3152C78.399 15.6467 77.8969 16.1062 77.5085 16.6935C77.1296 17.2714 76.8501 17.9345 76.6702 18.6828C76.4902 19.4217 76.4002 20.1985 76.4002 21.0132V21.61C76.4002 22.4341 76.4854 23.2204 76.656 23.9688C76.8359 24.7077 77.1154 25.366 77.4943 25.9439C77.8827 26.5217 78.3848 26.9812 79.0005 27.3222C79.6257 27.6537 80.3788 27.8195 81.2598 27.8195ZM88.4936 21.5531V21.0842C88.4936 19.9664 88.6546 18.9339 88.9767 17.9866C89.2988 17.0393 89.7582 16.2199 90.355 15.5283C90.9613 14.8368 91.686 14.3016 92.5291 13.9227C93.3722 13.5343 94.31 13.3401 95.3425 13.3401C96.3846 13.3401 97.3271 13.5343 98.1702 13.9227C99.0133 14.3016 99.738 14.8368 100.344 15.5283C100.951 16.2199 101.415 17.0393 101.737 17.9866C102.059 18.9339 102.22 19.9664 102.22 21.0842V21.5531C102.22 22.671 102.059 23.7035 101.737 24.6508C101.415 25.5886 100.951 26.4033 100.344 27.0948C99.7475 27.7864 99.0275 28.3263 98.1844 28.7147C97.3413 29.0936 96.4035 29.2831 95.371 29.2831C94.3289 29.2831 93.3864 29.0936 92.5433 28.7147C91.7002 28.3263 90.9755 27.7864 90.3692 27.0948C89.763 26.4033 89.2988 25.5886 88.9767 24.6508C88.6546 23.7035 88.4936 22.671 88.4936 21.5531ZM90.1845 21.0842V21.5531C90.1845 22.3962 90.2982 23.1967 90.5255 23.9545C90.7529 24.7029 91.0844 25.3708 91.5202 25.9581C91.956 26.5359 92.4959 26.9906 93.1401 27.3222C93.7842 27.6537 94.5279 27.8195 95.371 27.8195C96.2046 27.8195 96.9387 27.6537 97.5734 27.3222C98.2176 26.9906 98.7576 26.5359 99.1933 25.9581C99.6291 25.3708 99.9559 24.7029 100.174 23.9545C100.401 23.1967 100.515 22.3962 100.515 21.5531V21.0842C100.515 20.2506 100.401 19.4596 100.174 18.7113C99.9559 17.9629 99.6243 17.295 99.1791 16.7077C98.7434 16.1204 98.2034 15.6562 97.5592 15.3152C96.9151 14.9742 96.1762 14.8036 95.3425 14.8036C94.5089 14.8036 93.77 14.9742 93.1259 15.3152C92.4912 15.6562 91.9512 16.1204 91.506 16.7077C91.0702 17.295 90.7387 17.9629 90.5113 18.7113C90.2934 19.4596 90.1845 20.2506 90.1845 21.0842Z"
+                fill="black" />
+            </svg>
+          </a>
+          <span class="header__divider">
+            <svg xmlns="http://www.w3.org/2000/svg" width="2" height="33" viewBox="0 0 2 33" fill="none">
+              <path d="M0.900177 0V32.8565" stroke="black" stroke-width="1.80035" />
+            </svg>
+          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="148" height="38" viewBox="0 0 148 38" fill="none">
+            <g clip-path="url(#clip0_3141_47)">
+              <path d="M47.7743 11.2256V13.0301H53.0196V26.9241H54.9948V13.0301H60.2401V11.2256H47.7743Z"
+                fill="black" />
+              <path
+                d="M60.6488 21.2632C60.6488 24.6911 62.9192 27.0595 66.3929 27.0595C68.9803 27.0595 71.0706 25.4587 71.5246 23.158H69.6402C69.2543 24.6467 67.7997 25.4129 66.2567 25.4129C64.0998 25.4129 62.6695 23.9242 62.6013 21.7821V21.6241H71.592C71.6148 21.3535 71.6374 21.0828 71.6374 20.8346C71.5466 17.4286 69.3209 15.376 66.1431 15.376C62.8737 15.376 60.6488 17.7219 60.6488 21.2632ZM62.7149 20.0903C62.8965 18.2181 64.4631 17.0001 66.1659 17.0001C68.0041 17.0001 69.4579 18.1054 69.6395 20.0903H62.7149Z"
+                fill="black" />
+              <path
+                d="M87.8773 15.376C85.8114 15.376 84.5626 16.3234 83.8588 17.564C83.2004 16.0978 81.8154 15.376 80.2035 15.376C78.4099 15.376 77.4337 16.2557 76.8207 17.0903L76.6624 15.5114H74.9589V26.9241H76.8207V20.9475C76.8207 18.6467 77.9785 17.0677 79.8857 17.0677C81.6566 17.0677 82.6782 18.2407 82.6782 20.4964V26.9241H84.54V20.8572C84.54 18.5114 85.7206 17.0677 87.6507 17.0677C89.3982 17.0677 90.3973 18.2407 90.3973 20.4964V26.9241H92.259V20.3835C92.259 16.752 90.284 15.376 87.8773 15.376Z"
+                fill="black" />
+              <path
+                d="M101.5 15.376C99.5469 15.376 98.298 16.3008 97.5264 17.361L97.3685 15.5114H95.6647V31.4354H97.5264V25.1648C98.2302 26.2701 99.5469 27.0595 101.5 27.0595C104.609 27.0595 107.062 24.6911 107.062 21.2632C107.062 17.5188 104.609 15.376 101.5 15.376ZM101.318 25.4129C99.0473 25.4129 97.5032 23.6534 97.5032 21.2181C97.5032 18.7594 99.0473 17.0226 101.318 17.0226C103.519 17.0226 105.155 18.7594 105.155 21.2632C105.155 23.676 103.519 25.4129 101.318 25.4129Z"
+                fill="black" />
+              <path
+                d="M115.446 27.0595C118.828 27.0595 121.19 24.6685 121.19 21.2632C121.19 17.767 118.828 15.376 115.446 15.376C112.062 15.376 109.701 17.767 109.701 21.2632C109.701 24.6685 112.062 27.0595 115.446 27.0595ZM115.446 25.4129C113.152 25.4129 111.608 23.6309 111.608 21.2632C111.608 18.8046 113.152 17.0226 115.446 17.0226C117.738 17.0226 119.282 18.8046 119.282 21.2632C119.282 23.6309 117.738 25.4129 115.446 25.4129Z"
+                fill="black" />
+              <path
+                d="M129.603 15.5113C127.537 15.5113 126.468 16.3684 125.923 17.2481L125.765 15.5113H124.062V26.9241H125.923V21.1504C125.923 19.3233 126.764 17.3159 129.194 17.3159H130.125V15.5113H129.603Z"
+                fill="black" />
+              <path
+                d="M142.558 25.1415C142.081 25.1415 141.786 24.9618 141.786 24.3978V19.5264C141.786 16.8422 140.175 15.376 137.223 15.376C134.43 15.376 132.592 16.7068 132.319 18.9625H134.181C134.408 17.7896 135.498 17.0226 137.132 17.0226C138.948 17.0226 139.924 17.9249 139.924 19.4136V20.2031H136.61C133.568 20.2031 131.956 21.3979 131.956 23.6986C131.956 25.7964 133.681 27.0595 136.224 27.0595C138.222 27.0595 139.288 26.1798 140.015 25.1422C140.038 26.2701 140.56 26.9241 142.104 26.9241H143.126V25.1415H142.558ZM139.924 22.2324C139.924 24.1498 138.676 25.4806 136.361 25.4806C134.817 25.4806 133.841 24.7136 133.841 23.5858C133.841 22.2775 134.771 21.7595 136.429 21.7595H139.924V22.2324Z"
+                fill="black" />
+              <path d="M145.767 11.2256V26.9241H147.629V11.2256H145.767Z" fill="black" />
+              <path
+                d="M25.1148 12.4259C24.2353 5.89113 22.0173 0.429642 18.5947 0.429642C15.1817 0.429642 12.9542 5.89113 12.0746 12.4259C5.49707 13.2998 -0.00012207 15.5034 -0.00012207 18.9037C-0.00012207 22.2946 5.49707 24.5076 12.0746 25.3815C12.9542 31.9164 15.1721 37.3778 18.5947 37.3778C22.0078 37.3778 24.2353 31.9164 25.1148 25.3815C31.6924 24.5076 37.1896 22.3041 37.1896 18.9037C37.1896 15.5034 31.6924 13.2903 25.1148 12.4259ZM11.8643 23.4629C5.56399 22.5606 1.88326 20.4899 1.88326 18.8942C1.88326 17.2985 5.55443 15.2279 11.8643 14.3256C11.7208 15.8358 11.6539 17.3745 11.6539 18.8942C11.6539 20.414 11.7208 21.9622 11.8643 23.4629ZM18.5947 2.2913C20.2008 2.2913 22.285 5.93862 23.1933 12.2074C21.6731 12.065 20.1244 11.9985 18.5947 11.9985C17.0651 11.9985 15.5163 12.0745 13.9962 12.2074C14.9044 5.94812 16.9885 2.2913 18.5947 2.2913ZM25.3252 23.4629C25.0192 23.5104 23.7382 23.6529 23.4227 23.6908C23.394 24.0137 23.2411 25.277 23.1933 25.581C22.285 31.8403 20.2008 35.4971 18.5947 35.4971C16.9885 35.4971 14.9044 31.8498 13.9962 25.581C13.9484 25.277 13.805 24.0043 13.7667 23.6908C13.6234 22.2091 13.5278 20.6134 13.5278 18.8942C13.5278 17.1751 13.6138 15.5889 13.7667 14.0976C15.2582 13.9552 16.8643 13.8601 18.5947 13.8601C20.3251 13.8601 21.9218 13.9456 23.4227 14.0976C23.7477 14.1261 25.0192 14.2781 25.3252 14.3256C31.6254 15.2279 35.3062 17.2985 35.3062 18.8942C35.3062 20.4899 31.6254 22.5606 25.3252 23.4629Z"
+                fill="black" />
+            </g>
+            <defs>
+              <clipPath id="clip0_3141_47">
+                <rect width="147.629" height="37.8074" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+
+        <a class="button button--primary site-header__cta" href="#"><span>Get the Whitepaper →</span></a>
+      </div>
+    </header>
+
     <section class="section hero">
       <div class="container">
         <div class="hero__content">
@@ -33,8 +92,8 @@
               workflow history.
             </p>
             <div class="hero__actions">
-              <a class="button button--primary" href="#">Get the Whitepaper →</a>
-              <a class="hero__link" href="#inside">See what's inside ↓</a>
+              <a class="button button--primary" href="#"><span>Get the Whitepaper →</span></a>
+              <a class="hero__link" href="#inside"> See what's inside ↓</a>
             </div>
           </div>
 
@@ -53,7 +112,9 @@
                 <span class="sr-only">Work Email</span>
                 <input type="email" name="email" placeholder="Work Email:*" />
               </label>
-              <button class="button button--secondary" type="submit">Get the Whitepaper →</button>
+              <button class="button button--primary" type="submit">
+                <span>Get the Whitepaper →</span>
+              </button>
               <p class="form-feedback" data-form-feedback hidden></p>
             </form>
           </aside>
@@ -85,7 +146,7 @@
           </article>
         </div>
         <div class="proof__cta">
-          <a class="button button--primary" href="#">Get the Whitepaper →</a>
+          <a class="button button--primary" href="#"><span>Get the Whitepaper →</span></a>
           <p class="proof__micro">Instant access. Real architecture. Real outcomes.</p>
         </div>
       </div>
@@ -104,7 +165,7 @@
           working prototype.
           This guide walks through the decisions that matter most.
         </p>
-        <a class="button button--primary" href="#">Download now →</a>
+        <a class="button button--primary" href="#"><span>Download now →</span></a>
         <h3 class="intro__learn-title">What you&rsquo;ll learn in this Whitepaper</h3>
         <div class="intro__faq-list">
           <details class="intro__faq-item">
@@ -159,7 +220,7 @@
         <div class="experts__grid">
           <article class="experts__card">
             <div class="experts__header">
-              <img class="experts__image" src="img/abdullah.jpg" alt="Abdullah Shah" />
+              <img class="experts__image" src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/abdullah.jpg" alt="Abdullah Shah" />
               <div class="experts__header-content">
                 <h3 class="experts__name">Abdullah Shah</h3>
                 <p class="experts__role">CEO / CTO</p>
@@ -172,7 +233,7 @@
           </article>
           <article class="experts__card">
             <div class="experts__header">
-              <img class="experts__image" src="img/saad.jpg" alt="Saad Arshad" />
+              <img class="experts__image" src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/saad.jpg" alt="Saad Arshad" />
               <div class="experts__header-content">
                 <h3 class="experts__name">Saad Arshad</h3>
                 <p class="experts__role">COO</p>
@@ -184,7 +245,7 @@
           </article>
           <article class="experts__card">
             <div class="experts__header">
-              <img class="experts__image" src="img/sidra.jpg" alt="Sidra Irshad " />
+              <img class="experts__image" src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/sidra.jpg" alt="Sidra Irshad " />
               <div class="experts__header-content">
                 <h3 class="experts__name">Sidra Irshad</h3>
                 <p class="experts__role">Senior SDM</p>
@@ -204,31 +265,33 @@
 
         <div class="brands-marquee__marquee" data-marquee data-speed="0.55" data-direction="left">
           <div class="brands-marquee__track">
-            <div class="brands-marquee__item"><img src="img/client-logos/cisco.png" alt="Cisco" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/alkira.png" alt="Alkira" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/copebit.png" alt="Copebit" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/nocsys.png" alt="Nocsys" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/monolets.png" alt="Monolets" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/fetch.png" alt="Fetch.ai" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/chkk.png" alt="Chkk" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/fafl.png" alt="FAFL" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/expert.png" alt="Expert Marketing Advisors" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/an10.png" alt="AN10" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/cisco.png" alt="Cisco" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/alkira.png" alt="Alkira" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/copebit.png" alt="Copebit" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/nocsys.png" alt="Nocsys" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/monolets.png" alt="Monolets" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/fetch.png" alt="Fetch.ai" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/chkk.png" alt="Chkk" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/fafl.png" alt="FAFL" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/expert.png" alt="Expert Marketing Advisors" />
+            </div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/an10.png" alt="AN10" /></div>
           </div>
         </div>
 
         <div class="brands-marquee__marquee" data-marquee data-speed="0.5" data-direction="left">
           <div class="brands-marquee__track">
-            <div class="brands-marquee__item"><img src="img/client-logos/synergy.png" alt="Synergy IT" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/shoreline.png" alt="Shoreline" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/fenix.png" alt="Fenix" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/cloud.png" alt="Cloud9" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/unicef.png" alt="UNICEF" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/it.png" alt="IT" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/intervision.png" alt="InterVision" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/datascience.png" alt="Data Science Dojo" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/2ndquadrant.png" alt="2ndQuadrant" /></div>
-            <div class="brands-marquee__item"><img src="img/client-logos/tameer.png" alt="Tameer" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/synergy.png" alt="Synergy IT" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/shoreline.png" alt="Shoreline" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/fenix.png" alt="Fenix" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/cloud.png" alt="Cloud9" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/unicef.png" alt="UNICEF" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/it.png" alt="IT" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/intervision.png" alt="InterVision" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/datascience.png" alt="Data Science Dojo" />
+            </div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/2ndquadrant.png" alt="2ndQuadrant" /></div>
+            <div class="brands-marquee__item"><img src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/tameer.png" alt="Tameer" /></div>
           </div>
         </div>
       </div>
@@ -240,31 +303,34 @@
           <p class="section-header__text">Inside the whitepaper</p>
           <h2 class="section-header__title">See The Diagrams And <span>Proof</span> Before You Download</h2>
           <p class="section-header__text inside-slider__text">
-            The whitepaper includes architecture diagrams, before/after impact spreads, and observability views built from real
+            The whitepaper includes architecture diagrams, before/after impact spreads, and observability views built
+            from real
             deployments.
           </p>
         </div>
 
-        <div class="inside-slider__panel swiper js-inside-swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
+        <div class="inside-slider__panel js-inside-slider">
+          <div class="inside-slider__track">
+            <div class="inside-slider__slide">
               <img class="inside-slider__diagram" src="./img/inside-slider-1.png" alt="Whitepaper inside slide 1" />
             </div>
-            <div class="swiper-slide">
+            <div class="inside-slider__slide">
               <img class="inside-slider__diagram" src="./img/inside-slider-2.png" alt="Whitepaper inside slide 2" />
             </div>
-            <div class="swiper-slide">
+            <div class="inside-slider__slide">
               <img class="inside-slider__diagram" src="./img/inside-slider-3.png" alt="Whitepaper inside slide 3" />
             </div>
-            <div class="swiper-slide">
+            <div class="inside-slider__slide">
               <img class="inside-slider__diagram" src="./img/inside-slider-4.png" alt="Whitepaper inside slide 4" />
             </div>
           </div>
         </div>
 
         <div class="inside-slider__controls" aria-label="Slider controls">
-          <button class="inside-slider__control inside-slider__control--prev" type="button" aria-label="Previous slide">‹</button>
-          <button class="inside-slider__control inside-slider__control--next" type="button" aria-label="Next slide">›</button>
+          <button class="inside-slider__control inside-slider__control--prev" type="button"
+            aria-label="Previous slide">‹</button>
+          <button class="inside-slider__control inside-slider__control--next" type="button"
+            aria-label="Next slide">›</button>
         </div>
       </div>
     </section>
@@ -275,47 +341,56 @@
           <p class="section-header__text">Case Studies</p>
           <h2 class="section-header__title">Redefining <span>Enterprise Engineering</span> - One Workflow At a Time</h2>
           <p class="section-header__text case-studies__intro">
-            Explore how we help enterprises modernize securely, automate reliably, and scale intelligently - from HIPAA-compliant
+            Explore how we help enterprises modernize securely, automate reliably, and scale intelligently - from
+            HIPAA-compliant
             healthcare apps to AI-powered network operations.
           </p>
         </div>
         <div class="case-studies__grid">
           <article class="case-studies__card">
             <div class="case-studies__thumb case-studies__thumb--one" aria-hidden="true"></div>
-            <h3 class="case-studies__title">Temporal in Production: A High-Growth Company Modernized Critical Workflows Without Rewriting Legacy Systems</h3>
+            <h3 class="case-studies__title">Temporal in Production: A High-Growth Company Modernized Critical Workflows
+              Without Rewriting Legacy Systems</h3>
             <p class="case-studies__text">
-              A construction workforce management platform faced recurring reliability failures in its most critical production workflows
+              A construction workforce management platform faced recurring reliability failures in its most critical
+              production workflows
             </p>
-            <a class="case-studies__link" href="#">See More →</a>
+            <a class="button case-studies__link" href="#"><span>See More →</span></a>
           </article>
           <article class="case-studies__card">
             <div class="case-studies__thumb case-studies__thumb--two" aria-hidden="true"></div>
-            <h3 class="case-studies__title">Temporal Cloud Migration: How a Scale-Up Achieved 99.99% Reliability by Migrating Production Workflows to Tempora...</h3>
+            <h3 class="case-studies__title">Temporal Cloud Migration: How a Scale-Up Achieved 99.99% Reliability by
+              Migrating Production Workflows to Tempora...</h3>
             <p class="case-studies__text">
-              A fast-growing scale-up built sophisticated on-premises Temporal deployment to power AI workflows and business process
+              A fast-growing scale-up built sophisticated on-premises Temporal deployment to power AI workflows and
+              business process
               orchestration
             </p>
-            <a class="case-studies__link" href="#">See More →</a>
+            <a class="button case-studies__link" href="#"><span>See More →</span></a>
           </article>
           <article class="case-studies__card">
             <div class="case-studies__thumb case-studies__thumb--three" aria-hidden="true"></div>
-            <h3 class="case-studies__title">First Temporal Workflow: Production-Grade Workflow Orchestration for Workflow-Centric Enterprises</h3>
+            <h3 class="case-studies__title">First Temporal Workflow: Production-Grade Workflow Orchestration for
+              Workflow-Centric Enterprises</h3>
             <p class="case-studies__text">
-              Xgrid partnered with a Fortune 500 enterprise to deliver mission-critical Temporal workflows with enterprise
+              Xgrid partnered with a Fortune 500 enterprise to deliver mission-critical Temporal workflows with
+              enterprise
             </p>
-            <a class="case-studies__link" href="#">See More →</a>
+            <a class="button case-studies__link" href="#"><span>See More →</span></a>
           </article>
           <article class="case-studies__card">
             <div class="case-studies__thumb case-studies__thumb--four" aria-hidden="true"></div>
             <h3 class="case-studies__title">OnSite Personnel Management</h3>
             <p class="case-studies__text">
-              Field operations cannot afford downtime. See how durable workflow orchestration and offline-first mobile apps transformed
-              on-site workforce management - ensuring accurate tracking, seamless sync, and compliant reporting on every job site.
+              Field operations cannot afford downtime. See how durable workflow orchestration and offline-first mobile
+              apps transformed
+              on-site workforce management - ensuring accurate tracking, seamless sync, and compliant reporting on every
+              job site.
             </p>
-            <a class="case-studies__link" href="#">See More →</a>
+            <a class="button case-studies__link" href="#"><span>See More →</span></a>
           </article>
         </div>
-        <a class="button button--primary" href="#">View All →</a>
+        <a class="button button--primary" href="#"><span>View All →</span></a>
       </div>
     </section>
 
@@ -324,9 +399,10 @@
         <div class="get-started__layout">
           <div class="get-started__content">
             <div class="section-header">
-            <h2 class="section-header__title">Get Started</h2>
+              <h2 class="section-header__title">Get Started</h2>
               <p class="section-header__text get-started__intro">
-                Gain practical insights into how Xgrid helps teams use Temporal to improve <strong>reliability, compliance, and
+                Gain practical insights into how Xgrid helps teams use Temporal to improve <strong>reliability,
+                  compliance, and
                   operational</strong> performance at scale.
               </p>
             </div>
@@ -337,17 +413,16 @@
                     name="full_name" placeholder="Full Name:*" /></label>
                 <label class="get-started__field"><span class="sr-only">Company</span><input type="text" name="company"
                     placeholder="Company:*" /></label>
-                <label class="get-started__field"><span class="sr-only">Work Email</span><input type="email" name="email"
-                    placeholder="Work Email:*" /></label>
-                <button class="button button--secondary get-started__button" type="submit">Get the Whitepaper →</button>
+                <label class="get-started__field"><span class="sr-only">Work Email</span><input type="email"
+                    name="email" placeholder="Work Email:*" /></label>
+                <button class="button button--secondary get-started__button" type="submit"><span>Get the Whitepaper
+                    →</span></button>
                 <p class="form-feedback" data-form-feedback hidden></p>
               </form>
             </aside>
           </div>
           <div class="get-started__book-wrap">
-            <img
-              class="get-started__book"
-              src="./img/get-started-book.png"
+            <img class="get-started__book" src="./img/get-started-book.png"
               alt="Temporal whitepaper book cover mockup" />
           </div>
         </div>
@@ -364,13 +439,14 @@
               <span class="footer__brand-name">Temporal</span>
             </div>
             <p class="footer__about-text">
-              Established in 2012, Xgrid has a history of delivering a wide range of intelligent and secure cloud infrastructure, user
-              interface and user experience solutions. Our strength lies in our team and its ability to deliver end-to-end solutions
+              Established in 2012, Xgrid has a history of delivering a wide range of intelligent and secure cloud
+              infrastructure, user
+              interface and user experience solutions. Our strength lies in our team and its ability to deliver
+              end-to-end solutions
               using cutting edge technologies.
             </p>
-            <img
-              class="footer__badge"
-              src="assets/c__Users_xgrid_AppData_Roaming_Cursor_User_workspaceStorage_c5e3c7727f3833509096f9cc24b6eed9_images_Footer-4770e856-4cbb-4ea8-a43b-e35a8189e976.png"
+            <img class="footer__badge"
+              src="https://purple-cow.xgrid.co/resources/wp-content/uploads/2026/05/Cloud-Partner-Badge_Certified-2-1.png"
               alt="Temporal cloud partner badge" />
           </div>
           <nav class="footer__nav">
@@ -401,11 +477,17 @@
       </div>
     </footer>
 
-    <a class="floating-pill" href="#"><span class="floating-pill__icon">↓</span><span
-        class="floating-pill__text">Download Whitepaper</span></a>
+    <a class="floating-pill" href="#">
+      <span class="floating-pill__icon">
+        <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M-1.46031e-05 5.44001L0.863985 4.59201L5.56799 9.26401V1.14441e-05H6.87999V9.23201L11.568 4.57601L12.432 5.44001L6.57599 11.2H5.85599L-1.46031e-05 5.44001Z"
+            fill="white" />
+        </svg>
+      </span>
+      <span class="floating-pill__text">Download Whitepaper</span></a>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
     class BrandMarquee {
       constructor(root) {
@@ -458,20 +540,104 @@
       new BrandMarquee(marquee);
     });
 
-    const insideSwiperElement = document.querySelector(".js-inside-swiper");
-    if (insideSwiperElement && typeof Swiper !== "undefined") {
-      new Swiper(insideSwiperElement, {
-        autoHeight: true,
-        loop: true,
-        slidesPerView: 1,
-        spaceBetween: 0,
-        speed: 500,
-        touchRatio: 1,
-        navigation: {
-          nextEl: ".inside-slider__control--next",
-          prevEl: ".inside-slider__control--prev",
-        },
-      });
+    class InsideSlider {
+      constructor(root) {
+        this.root = root;
+        this.track = root.querySelector(".inside-slider__track");
+        this.slides = Array.from(root.querySelectorAll(".inside-slider__slide"));
+        this.prevBtn = document.querySelector(".inside-slider__control--prev");
+        this.nextBtn = document.querySelector(".inside-slider__control--next");
+        this.index = 0;
+        this.startX = 0;
+        this.deltaX = 0;
+        this.isDragging = false;
+        this.threshold = 60;
+        this.init();
+      }
+
+      init() {
+        if (!this.track || this.slides.length === 0) return;
+
+        this.prevBtn?.addEventListener("click", () => this.goTo(this.index - 1));
+        this.nextBtn?.addEventListener("click", () => this.goTo(this.index + 1));
+
+        this.root.addEventListener("touchstart", (event) => this.onTouchStart(event), { passive: true });
+        this.root.addEventListener("touchmove", (event) => this.onTouchMove(event), { passive: true });
+        this.root.addEventListener("touchend", () => this.onTouchEnd());
+
+        this.root.addEventListener("pointerdown", (event) => this.onPointerDown(event));
+        window.addEventListener("pointermove", (event) => this.onPointerMove(event));
+        window.addEventListener("pointerup", () => this.onPointerUp());
+
+        this.slides.forEach((slide) => {
+          const image = slide.querySelector("img");
+          if (image) {
+            if (image.complete) this.updateHeight();
+            image.addEventListener("load", () => this.updateHeight());
+          }
+        });
+
+        window.addEventListener("resize", () => this.updateHeight());
+        this.goTo(0, false);
+      }
+
+      onTouchStart(event) {
+        this.startX = event.touches[0].clientX;
+        this.deltaX = 0;
+      }
+
+      onTouchMove(event) {
+        this.deltaX = event.touches[0].clientX - this.startX;
+      }
+
+      onTouchEnd() {
+        if (Math.abs(this.deltaX) > this.threshold) {
+          this.goTo(this.index + (this.deltaX < 0 ? 1 : -1));
+        }
+      }
+
+      onPointerDown(event) {
+        if (event.pointerType === "mouse" && event.button !== 0) return;
+        this.isDragging = true;
+        this.startX = event.clientX;
+        this.deltaX = 0;
+      }
+
+      onPointerMove(event) {
+        if (!this.isDragging) return;
+        this.deltaX = event.clientX - this.startX;
+      }
+
+      onPointerUp() {
+        if (!this.isDragging) return;
+        this.isDragging = false;
+        if (Math.abs(this.deltaX) > this.threshold) {
+          this.goTo(this.index + (this.deltaX < 0 ? 1 : -1));
+        }
+      }
+
+      goTo(index, animate = true) {
+        const total = this.slides.length;
+        this.index = (index + total) % total;
+        this.track.style.transition = animate ? "transform 500ms ease" : "none";
+        this.track.style.transform = `translateX(-${this.index * 100}%)`;
+        this.updateHeight();
+      }
+
+      updateHeight() {
+        const activeSlide = this.slides[this.index];
+        if (!activeSlide) return;
+        const image = activeSlide.querySelector("img");
+        const height = image ? image.getBoundingClientRect().height : activeSlide.getBoundingClientRect().height;
+        if (height > 0) {
+          this.root.style.height = `${height}px`;
+        }
+      }
+    }
+
+    const insideSliderElement = document.querySelector(".js-inside-slider");
+    if (insideSliderElement) {
+      new InsideSlider(insideSliderElement);
     }
 
     const HS_PORTAL_ID = "4404057";
