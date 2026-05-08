@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Temporal Whitepaper Landing Page</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="styles/main.css" />
 </head>
 
@@ -39,20 +40,21 @@
 
           <aside class="hero__form-card">
             <h2 class="hero__form-title">Get Your Copy Now</h2>
-            <form class="hero__form" action="#">
+            <form class="hero__form" data-hs-form="whitepaper-download" novalidate>
               <label class="hero__field">
                 <span class="sr-only">Full Name</span>
-                <input type="text" placeholder="Full Name:*" />
+                <input type="text" name="full_name" placeholder="Full Name:*" />
               </label>
               <label class="hero__field">
-                <span class="sr-only">Job Title</span>
-                <input type="text" placeholder="Job Title:*" />
+                <span class="sr-only">Company</span>
+                <input type="text" name="company" placeholder="Company:*" />
               </label>
               <label class="hero__field">
-                <span class="sr-only">Business Email</span>
-                <input type="email" placeholder="Business Email:*" />
+                <span class="sr-only">Work Email</span>
+                <input type="email" name="email" placeholder="Work Email:*" />
               </label>
               <button class="button button--secondary" type="submit">Get the Whitepaper →</button>
+              <p class="form-feedback" data-form-feedback hidden></p>
             </form>
           </aside>
         </div>
@@ -92,9 +94,10 @@
     <section class="section intro" id="inside">
       <div class="container">
         <div class="section-header">
-          <p class="section-header__text">About this guide</p>
+          <p class="section-header__label">About this guide</p>
           <h2 class="section-header__title"><span>Instant</span> access. <span>Real</span> architecture.
-            <span>Real</span> outcomes.</h2>
+            <span>Real</span> outcomes.
+          </h2>
         </div>
         <p class="intro__description">
           Temporal makes it easier to build durable workflows. But getting to production safely takes more than a
@@ -106,27 +109,42 @@
         <div class="intro__faq-list">
           <details class="intro__faq-item">
             <summary><span>01</span>The edge-to-cloud architecture behind durable field workflows</summary>
-            <p>Mobile apps absorb chaos at the edge; Temporal handles orchestration in the cloud. Business logic stays safe even when connectivity, GPS, and devices are all failing at once. See exactly how this boundary was drawn, and why it changed everything for on-site operations.</p>
+            <p>Mobile apps absorb chaos at the edge; Temporal handles orchestration in the cloud. Business logic stays
+              safe even when connectivity, GPS, and devices are all failing at once. See exactly how this boundary was
+              drawn, and why it changed everything for on-site operations.</p>
           </details>
           <details class="intro__faq-item">
             <summary><span>02</span>How Entity Workflows turn a worker&rsquo;s day into durable execution</summary>
-            <p>Each technician's shift runs as a long-lived Temporal workflow. Check-ins, task starts, breaks, and check-outs are all signals, logged immutably and enforced in sequence. No task can begin without a safety briefing. No check-out if tools are still signed out. Learn why this model outperforms request/response APIs for human-driven processes.</p>
+            <p>Each technician's shift runs as a long-lived Temporal workflow. Check-ins, task starts, breaks, and
+              check-outs are all signals, logged immutably and enforced in sequence. No task can begin without a safety
+              briefing. No check-out if tools are still signed out. Learn why this model outperforms request/response
+              APIs for human-driven processes.</p>
           </details>
           <details class="intro__faq-item" open>
             <summary><span>03</span>How offline-first syncing works with SignalWithStart</summary>
-            <p>Events queued locally while underground are batched and replayed in exact order the moment connectivity returns, even if the workflow was never started. The state machine lazily initialises and catches up. Offline isn't a failure mode here; it's an expected operating condition.</p>
+            <p>Events queued locally while underground are batched and replayed in exact order the moment connectivity
+              returns, even if the workflow was never started. The state machine lazily initialises and catches up.
+              Offline isn't a failure mode here; it's an expected operating condition.</p>
           </details>
           <details class="intro__faq-item">
             <summary><span>04</span>How to scale 1000s of workflows without overbuilding infrastructure</summary>
-            <p>Temporal's pull-based workers absorb morning spikes naturally. Signals are persisted immediately and pulled as capacity allows. USIS ran thousands of concurrent workflows across hundreds of sites on just five Kubernetes nodes, near 100% utilisation, without a single dropped check-in or auto-scaler in sight.</p>
+            <p>Temporal's pull-based workers absorb morning spikes naturally. Signals are persisted immediately and
+              pulled as capacity allows. USIS ran thousands of concurrent workflows across hundreds of sites on just
+              five Kubernetes nodes, near 100% utilisation, without a single dropped check-in or auto-scaler in sight.
+            </p>
           </details>
           <details class="intro__faq-item">
             <summary><span>05</span>How to run Temporal with zero-trust security</summary>
-            <p>A Custom Data Converter encrypts every payload before it leaves the on-prem environment. Temporal Cloud orchestrates scheduling and sequencing without ever seeing plaintext. Full managed-service benefits, full data sovereignty: the playbook for any regulated industry adopting Temporal.</p>
+            <p>A Custom Data Converter encrypts every payload before it leaves the on-prem environment. Temporal Cloud
+              orchestrates scheduling and sequencing without ever seeing plaintext. Full managed-service benefits, full
+              data sovereignty: the playbook for any regulated industry adopting Temporal.</p>
           </details>
           <details class="intro__faq-item">
             <summary><span>06</span>What reliability looks like when it becomes a business advantage</summary>
-            <p>Payroll jumped from ~80% to 99%+ accuracy. Tool losses per site dropped from $50k+ to near zero. Compliance records became exportable on demand. Management went from reactive to real-time, with live worker heatmaps, blocker alerts, and months of workflow data for analytics. Each architecture decision tied to a measurable outcome.</p>
+            <p>Payroll jumped from ~80% to 99%+ accuracy. Tool losses per site dropped from $50k+ to near zero.
+              Compliance records became exportable on demand. Management went from reactive to real-time, with live
+              worker heatmaps, blocker alerts, and months of workflow data for analytics. Each architecture decision
+              tied to a measurable outcome.</p>
           </details>
         </div>
       </div>
@@ -135,22 +153,118 @@
     <section class="section experts">
       <div class="container">
         <div class="section-header">
-          <p class="section-header__text">Experts behind this whitepaper</p>
+          <p class="section-header__label">Experts behind this whitepaper</p>
           <h2 class="section-header__title">Written by <span>engineers</span> who ship Temporal in production</h2>
         </div>
         <div class="experts__grid">
           <article class="experts__card">
-            <h3 class="experts__name">Abdullah Shah</h3>
-            <p class="experts__role">CEO / CTO</p>
+            <div class="experts__header">
+              <img class="experts__image" src="img/abdullah.jpg" alt="Abdullah Shah" />
+              <div class="experts__header-content">
+                <h3 class="experts__name">Abdullah Shah</h3>
+                <p class="experts__role">CEO / CTO</p>
+              </div>
+            </div>
+            <p class="experts__bio">
+              Leads the technical vision behind Xgrid’s production-grade workflow systems, with a focus on durable
+              execution, architecture strategy, & enterprise reliability.
+            </p>
           </article>
           <article class="experts__card">
-            <h3 class="experts__name">Saad Arshad</h3>
-            <p class="experts__role">COO</p>
+            <div class="experts__header">
+              <img class="experts__image" src="img/saad.jpg" alt="Saad Arshad" />
+              <div class="experts__header-content">
+                <h3 class="experts__name">Saad Arshad</h3>
+                <p class="experts__role">COO</p>
+              </div>
+            </div>
+            <p class="experts__bio">
+              Brings the operational lens behind enterprise delivery—connecting workflow design to business outcomes
+              like compliance, rollout success, & execution at scale. </p>
           </article>
           <article class="experts__card">
-            <h3 class="experts__name">Sidra Irshad</h3>
-            <p class="experts__role">Senior SDM</p>
+            <div class="experts__header">
+              <img class="experts__image" src="img/sidra.jpg" alt="Sidra Irshad " />
+              <div class="experts__header-content">
+                <h3 class="experts__name">Sidra Irshad</h3>
+                <p class="experts__role">Senior SDM</p>
+              </div>
+            </div>
+            <p class="experts__bio">
+              Leads engineering execution across resilient workflow platforms, with hands-on depth in observability,
+              deployment safety, and production-ready systems. </p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section brands-marquee" aria-label="Client logos">
+      <div class="">
+        <p class="brands-marquee__title">BUILDING CLOUD AND APP SOLUTIONS FOR LEADING BRANDS</p>
+
+        <div class="brands-marquee__marquee" data-marquee data-speed="0.55" data-direction="left">
+          <div class="brands-marquee__track">
+            <div class="brands-marquee__item"><img src="img/client-logos/cisco.png" alt="Cisco" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/alkira.png" alt="Alkira" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/copebit.png" alt="Copebit" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/nocsys.png" alt="Nocsys" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/monolets.png" alt="Monolets" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/fetch.png" alt="Fetch.ai" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/chkk.png" alt="Chkk" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/fafl.png" alt="FAFL" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/expert.png" alt="Expert Marketing Advisors" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/an10.png" alt="AN10" /></div>
+          </div>
+        </div>
+
+        <div class="brands-marquee__marquee" data-marquee data-speed="0.5" data-direction="left">
+          <div class="brands-marquee__track">
+            <div class="brands-marquee__item"><img src="img/client-logos/synergy.png" alt="Synergy IT" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/shoreline.png" alt="Shoreline" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/fenix.png" alt="Fenix" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/cloud.png" alt="Cloud9" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/unicef.png" alt="UNICEF" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/it.png" alt="IT" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/intervision.png" alt="InterVision" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/datascience.png" alt="Data Science Dojo" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/2ndquadrant.png" alt="2ndQuadrant" /></div>
+            <div class="brands-marquee__item"><img src="img/client-logos/tameer.png" alt="Tameer" /></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section inside-slider" id="inside-slider">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-header__text">Inside the whitepaper</p>
+          <h2 class="section-header__title">See The Diagrams And <span>Proof</span> Before You Download</h2>
+          <p class="section-header__text inside-slider__text">
+            The whitepaper includes architecture diagrams, before/after impact spreads, and observability views built from real
+            deployments.
+          </p>
+        </div>
+
+        <div class="inside-slider__panel swiper js-inside-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img class="inside-slider__diagram" src="./img/inside-slider-1.png" alt="Whitepaper inside slide 1" />
+            </div>
+            <div class="swiper-slide">
+              <img class="inside-slider__diagram" src="./img/inside-slider-2.png" alt="Whitepaper inside slide 2" />
+            </div>
+            <div class="swiper-slide">
+              <img class="inside-slider__diagram" src="./img/inside-slider-3.png" alt="Whitepaper inside slide 3" />
+            </div>
+            <div class="swiper-slide">
+              <img class="inside-slider__diagram" src="./img/inside-slider-4.png" alt="Whitepaper inside slide 4" />
+            </div>
+          </div>
+        </div>
+
+        <div class="inside-slider__controls" aria-label="Slider controls">
+          <button class="inside-slider__control inside-slider__control--prev" type="button" aria-label="Previous slide">‹</button>
+          <button class="inside-slider__control inside-slider__control--next" type="button" aria-label="Next slide">›</button>
         </div>
       </div>
     </section>
@@ -160,19 +274,45 @@
         <div class="section-header">
           <p class="section-header__text">Case Studies</p>
           <h2 class="section-header__title">Redefining <span>Enterprise Engineering</span> - One Workflow At a Time</h2>
+          <p class="section-header__text case-studies__intro">
+            Explore how we help enterprises modernize securely, automate reliably, and scale intelligently - from HIPAA-compliant
+            healthcare apps to AI-powered network operations.
+          </p>
         </div>
         <div class="case-studies__grid">
           <article class="case-studies__card">
-            <h3>Temporal in Production</h3><a href="#">See More →</a>
+            <div class="case-studies__thumb case-studies__thumb--one" aria-hidden="true"></div>
+            <h3 class="case-studies__title">Temporal in Production: A High-Growth Company Modernized Critical Workflows Without Rewriting Legacy Systems</h3>
+            <p class="case-studies__text">
+              A construction workforce management platform faced recurring reliability failures in its most critical production workflows
+            </p>
+            <a class="case-studies__link" href="#">See More →</a>
           </article>
           <article class="case-studies__card">
-            <h3>Temporal Cloud Migration</h3><a href="#">See More →</a>
+            <div class="case-studies__thumb case-studies__thumb--two" aria-hidden="true"></div>
+            <h3 class="case-studies__title">Temporal Cloud Migration: How a Scale-Up Achieved 99.99% Reliability by Migrating Production Workflows to Tempora...</h3>
+            <p class="case-studies__text">
+              A fast-growing scale-up built sophisticated on-premises Temporal deployment to power AI workflows and business process
+              orchestration
+            </p>
+            <a class="case-studies__link" href="#">See More →</a>
           </article>
           <article class="case-studies__card">
-            <h3>First Temporal Workflow</h3><a href="#">See More →</a>
+            <div class="case-studies__thumb case-studies__thumb--three" aria-hidden="true"></div>
+            <h3 class="case-studies__title">First Temporal Workflow: Production-Grade Workflow Orchestration for Workflow-Centric Enterprises</h3>
+            <p class="case-studies__text">
+              Xgrid partnered with a Fortune 500 enterprise to deliver mission-critical Temporal workflows with enterprise
+            </p>
+            <a class="case-studies__link" href="#">See More →</a>
           </article>
           <article class="case-studies__card">
-            <h3>OnSite Personnel Management</h3><a href="#">See More →</a>
+            <div class="case-studies__thumb case-studies__thumb--four" aria-hidden="true"></div>
+            <h3 class="case-studies__title">OnSite Personnel Management</h3>
+            <p class="case-studies__text">
+              Field operations cannot afford downtime. See how durable workflow orchestration and offline-first mobile apps transformed
+              on-site workforce management - ensuring accurate tracking, seamless sync, and compliant reporting on every job site.
+            </p>
+            <a class="case-studies__link" href="#">See More →</a>
           </article>
         </div>
         <a class="button button--primary" href="#">View All →</a>
@@ -182,18 +322,34 @@
     <section class="section get-started">
       <div class="container">
         <div class="get-started__layout">
-          <div class="section-header">
+          <div class="get-started__content">
+            <div class="section-header">
             <h2 class="section-header__title">Get Started</h2>
-            <p class="section-header__text">
-              Gain practical insights into how Xgrid helps teams use Temporal to improve reliability, compliance, and
-              operational
-              performance at scale.
-            </p>
+              <p class="section-header__text get-started__intro">
+                Gain practical insights into how Xgrid helps teams use Temporal to improve <strong>reliability, compliance, and
+                  operational</strong> performance at scale.
+              </p>
+            </div>
+            <aside class="get-started__form-card">
+              <h3 class="get-started__form-title">Get Your Copy Now</h3>
+              <form class="get-started__form" data-hs-form="whitepaper-download" novalidate>
+                <label class="get-started__field"><span class="sr-only">Full Name</span><input type="text"
+                    name="full_name" placeholder="Full Name:*" /></label>
+                <label class="get-started__field"><span class="sr-only">Company</span><input type="text" name="company"
+                    placeholder="Company:*" /></label>
+                <label class="get-started__field"><span class="sr-only">Work Email</span><input type="email" name="email"
+                    placeholder="Work Email:*" /></label>
+                <button class="button button--secondary get-started__button" type="submit">Get the Whitepaper →</button>
+                <p class="form-feedback" data-form-feedback hidden></p>
+              </form>
+            </aside>
           </div>
-          <aside class="get-started__form-card">
-            <h3>Get Your Copy Now</h3>
-            <a class="button button--secondary" href="#">Get the Whitepaper →</a>
-          </aside>
+          <div class="get-started__book-wrap">
+            <img
+              class="get-started__book"
+              src="./img/get-started-book.png"
+              alt="Temporal whitepaper book cover mockup" />
+          </div>
         </div>
       </div>
     </section>
@@ -202,13 +358,44 @@
       <div class="container">
         <div class="footer__grid">
           <div class="footer__about">
-            <h3>Xgrid.co | Temporal</h3>
+            <div class="footer__brand">
+              <span class="footer__brand-name">Xgrid.co</span>
+              <span class="footer__brand-divider" aria-hidden="true"></span>
+              <span class="footer__brand-name">Temporal</span>
+            </div>
+            <p class="footer__about-text">
+              Established in 2012, Xgrid has a history of delivering a wide range of intelligent and secure cloud infrastructure, user
+              interface and user experience solutions. Our strength lies in our team and its ability to deliver end-to-end solutions
+              using cutting edge technologies.
+            </p>
+            <img
+              class="footer__badge"
+              src="assets/c__Users_xgrid_AppData_Roaming_Cursor_User_workspaceStorage_c5e3c7727f3833509096f9cc24b6eed9_images_Footer-4770e856-4cbb-4ea8-a43b-e35a8189e976.png"
+              alt="Temporal cloud partner badge" />
           </div>
           <nav class="footer__nav">
             <h3>Navigation</h3>
+            <ul class="footer__list">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Projects</a></li>
+            </ul>
           </nav>
           <address class="footer__address">
-            <h3>Office Address</h3>
+            <h3>OFFICE ADDRESS</h3>
+            <div class="footer__address-block">
+              <p class="footer__address-title">US Address:</p>
+              <p class="footer__address-text">Plug and Play Tech Center, 440 N Wolfe Rd, Sunnyvale, CA 94085</p>
+            </div>
+            <div class="footer__address-block">
+              <p class="footer__address-title">Dubai Address:</p>
+              <p class="footer__address-text">Dubai Silicon Oasis, DDP, Building A1, Dubai, United Arab Emirates</p>
+            </div>
+            <div class="footer__socials">
+              <a class="footer__social" href="#" aria-label="X">𝕏</a>
+              <a class="footer__social" href="#" aria-label="LinkedIn">in</a>
+              <a class="footer__social" href="#" aria-label="YouTube">▶</a>
+            </div>
           </address>
         </div>
       </div>
@@ -218,7 +405,195 @@
         class="floating-pill__text">Download Whitepaper</span></a>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
+    class BrandMarquee {
+      constructor(root) {
+        this.root = root;
+        this.track = root.querySelector(".brands-marquee__track");
+        this.speed = Number(root.dataset.speed || 0.5);
+        this.direction = root.dataset.direction || "left";
+        this.position = 0;
+        this.raf = null;
+        this.init();
+      }
+
+      init() {
+        this.cloneUntilFilled();
+        this.start();
+      }
+
+      cloneUntilFilled() {
+        const containerWidth = this.root.offsetWidth;
+        let trackWidth = this.track.scrollWidth;
+        const originalItems = Array.from(this.track.children);
+
+        while (trackWidth < containerWidth * 2) {
+          originalItems.forEach((item) => {
+            this.track.appendChild(item.cloneNode(true));
+          });
+          trackWidth = this.track.scrollWidth;
+        }
+      }
+
+      start() {
+        const animate = () => {
+          const move = this.direction === "left" ? -this.speed : this.speed;
+          this.position += move;
+          const resetPoint = this.track.scrollWidth / 2;
+
+          if (Math.abs(this.position) >= resetPoint) {
+            this.position = 0;
+          }
+
+          this.track.style.transform = `translateX(${this.position}px)`;
+          this.raf = requestAnimationFrame(animate);
+        };
+
+        animate();
+      }
+    }
+
+    document.querySelectorAll("[data-marquee]").forEach((marquee) => {
+      new BrandMarquee(marquee);
+    });
+
+    const insideSwiperElement = document.querySelector(".js-inside-swiper");
+    if (insideSwiperElement && typeof Swiper !== "undefined") {
+      new Swiper(insideSwiperElement, {
+        autoHeight: true,
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        speed: 500,
+        touchRatio: 1,
+        navigation: {
+          nextEl: ".inside-slider__control--next",
+          prevEl: ".inside-slider__control--prev",
+        },
+      });
+    }
+
+    const HS_PORTAL_ID = "4404057";
+    const HS_FORM_ID = "e3113b58-aa84-45c1-ad9a-bcab72776e51";
+    const HS_ENDPOINT = `https://api.hsforms.com/submissions/v3/integration/submit/${HS_PORTAL_ID}/${HS_FORM_ID}`;
+
+    const validators = {
+      full_name(value) {
+        const trimmed = value.trim();
+        if (!trimmed) return "Full Name is required";
+        if (trimmed.length < 3) return "Full Name must be at least 3 characters";
+        if (trimmed.length > 50) return "Full Name must be at most 50 characters";
+        if (!/^[a-zA-Z\s.'-]+$/.test(trimmed)) return "Name can only contain letters and valid characters";
+        return "";
+      },
+      email(value) {
+        const trimmed = value.trim().toLowerCase();
+        if (!trimmed) return "Email is required";
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmed)) return "Enter a valid email";
+        return "";
+      },
+      company(value) {
+        const trimmed = value.trim();
+        if (!trimmed) return "Company is required";
+        if (trimmed.length < 2) return "Company must be at least 2 characters";
+        if (trimmed.length > 75) return "Company must be at most 75 characters";
+        if (!/^[a-zA-Z0-9\s&.,'-]+$/.test(trimmed)) return "Company contains invalid characters";
+        return "";
+      },
+    };
+
+    function validateForm(form) {
+      const fields = ["full_name", "email", "company"];
+      let errorMessage = "";
+
+      fields.forEach((fieldName) => {
+        const input = form.elements[fieldName];
+        if (!input) return;
+        const error = validators[fieldName](input.value || "");
+        input.classList.toggle("is-error", !!error);
+        if (!errorMessage && error) errorMessage = error;
+      });
+
+      return errorMessage;
+    }
+
+    async function submitToHubSpot(form) {
+      const data = new FormData(form);
+      const fields = ["full_name", "email", "company"]
+        .map((name) => ({ name, value: String(data.get(name) || "").trim() }))
+        .filter((item) => item.value !== "");
+
+      const payload = {
+        fields,
+        context: {
+          pageUri: window.location.href,
+          pageName: document.title,
+        },
+      };
+
+      const res = await fetch(HS_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.message || `HubSpot error ${res.status}`);
+      }
+
+      return res.json();
+    }
+
+    function setFeedback(form, message, type) {
+      const feedback = form.querySelector("[data-form-feedback]");
+      if (!feedback) return;
+      feedback.hidden = !message;
+      feedback.textContent = message || "";
+      feedback.classList.remove("form-feedback--error", "form-feedback--success");
+      if (message && type) feedback.classList.add(`form-feedback--${type}`);
+    }
+
+    function bindHubSpotForms() {
+      const forms = document.querySelectorAll("[data-hs-form]");
+      forms.forEach((form) => {
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          setFeedback(form, "", "");
+
+          const validationError = validateForm(form);
+          if (validationError) {
+            setFeedback(form, validationError, "error");
+            return;
+          }
+
+          const button = form.querySelector("button[type='submit']");
+          const originalLabel = button ? button.textContent : "";
+          if (button) {
+            button.disabled = true;
+            button.textContent = "Submitting...";
+          }
+
+          try {
+            await submitToHubSpot(form);
+            form.reset();
+            form.querySelectorAll("input").forEach((input) => input.classList.remove("is-error"));
+            setFeedback(form, "Thanks! Your form has been submitted.", "success");
+          } catch (error) {
+            setFeedback(form, error.message || "Something went wrong. Please try again.", "error");
+          } finally {
+            if (button) {
+              button.disabled = false;
+              button.textContent = originalLabel;
+            }
+          }
+        });
+      });
+    }
+
+    bindHubSpotForms();
+
     const ALLOW_MULTIPLE_FAQS_OPEN = false;
 
     if (!ALLOW_MULTIPLE_FAQS_OPEN) {
