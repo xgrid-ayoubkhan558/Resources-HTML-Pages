@@ -491,35 +491,55 @@
   <script>
     class BrandMarquee {
       constructor(root) {
-        this.root = root;
-        this.track = root.querySelector(".brands-marquee__track");
-        this.speed = Number(root.dataset.speed || 0.5);
-        this.direction = root.dataset.direction || "left";
-        this.position = 0;
-        this.raf = null;
-        this.init();
+        try {
+          this.root = root;
+          this.track = root.querySelector(".brands-marquee__track");
+          if (!this.track) return;
+          this.speed = Number(root.dataset.speed || 0.5);
+          this.direction = root.dataset.direction || "left";
+          this.position = 0;
+          this.raf = null;
+          this.isRunning = false;
+          this.init();
+        } catch (e) {
+          console.warn('BrandMarquee init error:', e);
+        }
       }
 
       init() {
-        this.cloneUntilFilled();
-        this.start();
+        try {
+          this.cloneUntilFilled();
+          this.start();
+        } catch (e) {
+          console.warn('BrandMarquee start error:', e);
+        }
       }
 
       cloneUntilFilled() {
-        const containerWidth = this.root.offsetWidth;
+        if (!this.track) return;
+        const containerWidth = this.root?.offsetWidth || 0;
+        if (containerWidth === 0) return;
+        
         let trackWidth = this.track.scrollWidth;
         const originalItems = Array.from(this.track.children);
+        let iterations = 0;
 
-        while (trackWidth < containerWidth * 2) {
+        while (trackWidth < containerWidth * 2 && iterations < 10) {
           originalItems.forEach((item) => {
             this.track.appendChild(item.cloneNode(true));
           });
           trackWidth = this.track.scrollWidth;
+          iterations++;
         }
       }
 
       start() {
+        if (this.isRunning || !this.track) return;
+        this.isRunning = true;
+        
         const animate = () => {
+          if (!this.isRunning || !this.track) return;
+          
           const move = this.direction === "left" ? -this.speed : this.speed;
           this.position += move;
           const resetPoint = this.track.scrollWidth / 2;
@@ -534,51 +554,82 @@
 
         animate();
       }
+
+      destroy() {
+        this.isRunning = false;
+        if (this.raf) {
+          cancelAnimationFrame(this.raf);
+          this.raf = null;
+        }
+      }
     }
 
-    document.querySelectorAll("[data-marquee]").forEach((marquee) => {
-      new BrandMarquee(marquee);
-    });
+    function initBrandMarquees() {
+      try {
+        document.querySelectorAll("[data-marquee]").forEach((marquee) => {
+          new BrandMarquee(marquee);
+        });
+      } catch (e) {
+        console.warn('BrandMarquee init failed:', e);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initBrandMarquees);
+    } else {
+      initBrandMarquees();
+    }
 
     class InsideSlider {
       constructor(root) {
-        this.root = root;
-        this.track = root.querySelector(".inside-slider__track");
-        this.slides = Array.from(root.querySelectorAll(".inside-slider__slide"));
-        this.prevBtn = document.querySelector(".inside-slider__control--prev");
-        this.nextBtn = document.querySelector(".inside-slider__control--next");
-        this.index = 0;
-        this.startX = 0;
-        this.deltaX = 0;
-        this.isDragging = false;
-        this.threshold = 60;
-        this.init();
+        try {
+          this.root = root;
+          this.track = root.querySelector(".inside-slider__track");
+          this.slides = Array.from(root.querySelectorAll(".inside-slider__slide"));
+          
+          if (!this.track || this.slides.length === 0) return;
+          
+          this.prevBtn = document.querySelector(".inside-slider__control--prev");
+          this.nextBtn = document.querySelector(".inside-slider__control--next");
+          this.index = 0;
+          this.startX = 0;
+          this.deltaX = 0;
+          this.isDragging = false;
+          this.threshold = 60;
+          this.init();
+        } catch (e) {
+          console.warn('InsideSlider init error:', e);
+        }
       }
 
       init() {
-        if (!this.track || this.slides.length === 0) return;
+        try {
+          if (!this.track || this.slides.length === 0) return;
 
-        this.prevBtn?.addEventListener("click", () => this.goTo(this.index - 1));
-        this.nextBtn?.addEventListener("click", () => this.goTo(this.index + 1));
+          this.prevBtn?.addEventListener("click", () => this.goTo(this.index - 1));
+          this.nextBtn?.addEventListener("click", () => this.goTo(this.index + 1));
 
-        this.root.addEventListener("touchstart", (event) => this.onTouchStart(event), { passive: true });
-        this.root.addEventListener("touchmove", (event) => this.onTouchMove(event), { passive: true });
-        this.root.addEventListener("touchend", () => this.onTouchEnd());
+          this.root.addEventListener("touchstart", (event) => this.onTouchStart(event), { passive: true });
+          this.root.addEventListener("touchmove", (event) => this.onTouchMove(event), { passive: true });
+          this.root.addEventListener("touchend", () => this.onTouchEnd());
 
-        this.root.addEventListener("pointerdown", (event) => this.onPointerDown(event));
-        window.addEventListener("pointermove", (event) => this.onPointerMove(event));
-        window.addEventListener("pointerup", () => this.onPointerUp());
+          this.root.addEventListener("pointerdown", (event) => this.onPointerDown(event));
+          window.addEventListener("pointermove", (event) => this.onPointerMove(event));
+          window.addEventListener("pointerup", () => this.onPointerUp());
 
-        this.slides.forEach((slide) => {
-          const image = slide.querySelector("img");
-          if (image) {
-            if (image.complete) this.updateHeight();
-            image.addEventListener("load", () => this.updateHeight());
-          }
-        });
+          this.slides.forEach((slide) => {
+            const image = slide.querySelector("img");
+            if (image) {
+              if (image.complete) this.updateHeight();
+              image.addEventListener("load", () => this.updateHeight());
+            }
+          });
 
-        window.addEventListener("resize", () => this.updateHeight());
-        this.goTo(0, false);
+          window.addEventListener("resize", () => this.updateHeight());
+          this.goTo(0, false);
+        } catch (e) {
+          console.warn('InsideSlider setup error:', e);
+        }
       }
 
       onTouchStart(event) {
@@ -617,27 +668,47 @@
       }
 
       goTo(index, animate = true) {
-        const total = this.slides.length;
-        this.index = (index + total) % total;
-        this.track.style.transition = animate ? "transform 500ms ease" : "none";
-        this.track.style.transform = `translateX(-${this.index * 100}%)`;
-        this.updateHeight();
+        try {
+          const total = this.slides.length;
+          this.index = (index + total) % total;
+          this.track.style.transition = animate ? "transform 500ms ease" : "none";
+          this.track.style.transform = `translateX(-${this.index * 100}%)`;
+          this.updateHeight();
+        } catch (e) {
+          console.warn('InsideSlider goTo error:', e);
+        }
       }
 
       updateHeight() {
-        const activeSlide = this.slides[this.index];
-        if (!activeSlide) return;
-        const image = activeSlide.querySelector("img");
-        const height = image ? image.getBoundingClientRect().height : activeSlide.getBoundingClientRect().height;
-        if (height > 0) {
-          this.root.style.height = `${height}px`;
+        try {
+          const activeSlide = this.slides[this.index];
+          if (!activeSlide) return;
+          const image = activeSlide.querySelector("img");
+          const height = image ? image.getBoundingClientRect().height : activeSlide.getBoundingClientRect().height;
+          if (height > 0) {
+            this.root.style.height = `${height}px`;
+          }
+        } catch (e) {
+          console.warn('InsideSlider updateHeight error:', e);
         }
       }
     }
 
-    const insideSliderElement = document.querySelector(".js-inside-slider");
-    if (insideSliderElement) {
-      new InsideSlider(insideSliderElement);
+    function initInsideSlider() {
+      try {
+        const insideSliderElement = document.querySelector(".js-inside-slider");
+        if (insideSliderElement) {
+          new InsideSlider(insideSliderElement);
+        }
+      } catch (e) {
+        console.warn('InsideSlider init failed:', e);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initInsideSlider);
+    } else {
+      initInsideSlider();
     }
 
     const HS_PORTAL_ID = "4404057";
@@ -670,114 +741,162 @@
     };
 
     function validateForm(form) {
-      const fields = ["full_name", "email", "company"];
-      let errorMessage = "";
+      try {
+        const fields = ["full_name", "email", "company"];
+        let errorMessage = "";
 
-      fields.forEach((fieldName) => {
-        const input = form.elements[fieldName];
-        if (!input) return;
-        const error = validators[fieldName](input.value || "");
-        input.classList.toggle("is-error", !!error);
-        if (!errorMessage && error) errorMessage = error;
-      });
+        fields.forEach((fieldName) => {
+          const input = form.elements[fieldName];
+          if (!input) return;
+          const error = validators[fieldName](input.value || "");
+          input.classList.toggle("is-error", !!error);
+          if (!errorMessage && error) errorMessage = error;
+        });
 
-      return errorMessage;
+        return errorMessage;
+      } catch (e) {
+        console.warn('Form validation error:', e);
+        return "Validation error occurred";
+      }
     }
 
     async function submitToHubSpot(form) {
-      const data = new FormData(form);
-      const fields = ["full_name", "email", "company"]
-        .map((name) => ({ name, value: String(data.get(name) || "").trim() }))
-        .filter((item) => item.value !== "");
+      try {
+        const data = new FormData(form);
+        const fields = ["full_name", "email", "company"]
+          .map((name) => ({ name, value: String(data.get(name) || "").trim() }))
+          .filter((item) => item.value !== "");
 
-      const payload = {
-        fields,
-        context: {
-          pageUri: window.location.href,
-          pageName: document.title,
-        },
-      };
+        const payload = {
+          fields,
+          context: {
+            pageUri: window.location.href,
+            pageName: document.title,
+          },
+        };
 
-      const res = await fetch(HS_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
 
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err?.message || `HubSpot error ${res.status}`);
+        const res = await fetch(HS_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err?.message || `HubSpot error ${res.status}`);
+        }
+
+        return res.json();
+      } catch (e) {
+        console.warn('HubSpot submission error:', e);
+        throw e;
       }
-
-      return res.json();
     }
 
     function setFeedback(form, message, type) {
-      const feedback = form.querySelector("[data-form-feedback]");
-      if (!feedback) return;
-      feedback.hidden = !message;
-      feedback.textContent = message || "";
-      feedback.classList.remove("form-feedback--error", "form-feedback--success");
-      if (message && type) feedback.classList.add(`form-feedback--${type}`);
+      try {
+        const feedback = form.querySelector("[data-form-feedback]");
+        if (!feedback) return;
+        feedback.hidden = !message;
+        feedback.textContent = message || "";
+        feedback.classList.remove("form-feedback--error", "form-feedback--success");
+        if (message && type) feedback.classList.add(`form-feedback--${type}`);
+      } catch (e) {
+        console.warn('Feedback error:', e);
+      }
     }
 
     function bindHubSpotForms() {
-      const forms = document.querySelectorAll("[data-hs-form]");
-      forms.forEach((form) => {
-        form.addEventListener("submit", async (event) => {
-          event.preventDefault();
-          setFeedback(form, "", "");
+      try {
+        const forms = document.querySelectorAll("[data-hs-form]");
+        if (forms.length === 0) return;
 
-          const validationError = validateForm(form);
-          if (validationError) {
-            setFeedback(form, validationError, "error");
-            return;
-          }
+        forms.forEach((form) => {
+          form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            setFeedback(form, "", "");
 
-          const button = form.querySelector("button[type='submit']");
-          const originalLabel = button ? button.textContent : "";
-          if (button) {
-            button.disabled = true;
-            button.textContent = "Submitting...";
-          }
+            try {
+              const validationError = validateForm(form);
+              if (validationError) {
+                setFeedback(form, validationError, "error");
+                return;
+              }
 
-          try {
-            await submitToHubSpot(form);
-            form.reset();
-            form.querySelectorAll("input").forEach((input) => input.classList.remove("is-error"));
-            setFeedback(form, "Thanks! Your form has been submitted.", "success");
-          } catch (error) {
-            setFeedback(form, error.message || "Something went wrong. Please try again.", "error");
-          } finally {
-            if (button) {
-              button.disabled = false;
-              button.textContent = originalLabel;
-            }
-          }
-        });
-      });
-    }
+              const button = form.querySelector("button[type='submit']");
+              const originalLabel = button ? button.textContent : "";
+              if (button) {
+                button.disabled = true;
+                button.textContent = "Submitting...";
+              }
 
-    bindHubSpotForms();
-
-    const ALLOW_MULTIPLE_FAQS_OPEN = false;
-
-    if (!ALLOW_MULTIPLE_FAQS_OPEN) {
-      const faqItems = document.querySelectorAll(".intro__faq-item");
-
-      faqItems.forEach((faqItem) => {
-        faqItem.addEventListener("toggle", () => {
-          if (!faqItem.open) {
-            return;
-          }
-
-          faqItems.forEach((otherFaqItem) => {
-            if (otherFaqItem !== faqItem) {
-              otherFaqItem.open = false;
+              try {
+                await submitToHubSpot(form);
+                form.reset();
+                form.querySelectorAll("input").forEach((input) => input.classList.remove("is-error"));
+                setFeedback(form, "Thanks! Your form has been submitted.", "success");
+              } catch (error) {
+                setFeedback(form, error.message || "Something went wrong. Please try again.", "error");
+              } finally {
+                if (button) {
+                  button.disabled = false;
+                  button.textContent = originalLabel;
+                }
+              }
+            } catch (e) {
+              console.warn('Form submission error:', e);
+              setFeedback(form, "An unexpected error occurred", "error");
             }
           });
         });
-      });
+      } catch (e) {
+        console.warn('Form binding error:', e);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindHubSpotForms);
+    } else {
+      bindHubSpotForms();
+    }
+
+    const ALLOW_MULTIPLE_FAQS_OPEN = false;
+
+    function initFAQs() {
+      try {
+        if (!ALLOW_MULTIPLE_FAQS_OPEN) {
+          const faqItems = document.querySelectorAll(".intro__faq-item");
+          if (faqItems.length === 0) return;
+
+          faqItems.forEach((faqItem) => {
+            faqItem.addEventListener("toggle", () => {
+              if (!faqItem.open) {
+                return;
+              }
+
+              faqItems.forEach((otherFaqItem) => {
+                if (otherFaqItem !== faqItem) {
+                  otherFaqItem.open = false;
+                }
+              });
+            });
+          });
+        }
+      } catch (e) {
+        console.warn('FAQ init error:', e);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFAQs);
+    } else {
+      initFAQs();
     }
   </script>
 </body>
