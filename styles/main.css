@@ -29,6 +29,10 @@
   box-sizing: border-box;
 }
 
+body:not(:has(.data-mgmt-hero-section)) a {
+  margin-bottom: 0 !important;
+}
+
 body {
   color: var(--color-text-body);
   font-family: "Helvetica Neue LT Pro", sans-serif;
@@ -42,11 +46,10 @@ body {
   border: 0;
   outline: none;
   color: var(--color-text-body);
-  font-size: 15.2px;
+  font-size: clamp(14px, 0.098vw + 13.588px, 15px);
   font-weight: 700;
-  justify-content: center;
   line-height: normal;
-  min-height: 43px;
+  justify-content: center;
   text-decoration: none;
   transition: all var(--transition-base);
   position: relative;
@@ -62,7 +65,7 @@ body {
   width: 100%;
   transition: all var(--transition-base);
   border-radius: calc(var(--radius-card) - 2px);
-  padding: clamp(14px, 1.5vw, 16px) clamp(24px, 2.5vw, 32px);
+  padding: clamp(14px, 1.5vw, 16px) clamp(20px, 1.176vw + 15.059px, 32px);
   background: #ffffff;
 }
 .button--primary span {
@@ -102,7 +105,6 @@ body {
   backdrop-filter: blur(6px);
   bottom: 24px;
   color: var(--color-text-heading);
-  display: inline-flex;
   gap: 12px;
   padding: 9px 20.2px 9px 10.6px;
   position: fixed;
@@ -110,6 +112,7 @@ body {
   bottom: 75px;
   text-decoration: none;
   z-index: var(--z-floating);
+  display: none;
 }
 .floating-pill:hover .floating-pill__icon {
   background-color: #000;
@@ -123,6 +126,10 @@ body {
   height: 36px;
   justify-content: center;
   width: 36px;
+}
+
+body.scrolled-300 .floating-pill {
+  display: inline-flex;
 }
 
 .section {
@@ -183,8 +190,20 @@ body {
   align-items: center;
   gap: 12px;
 }
+.site-header__logos svg {
+  width: auto;
+  height: clamp(26px, 1.078vw + 21.471px, 37px);
+}
 .site-header__brand {
   margin-bottom: 0 !important;
+}
+.site-header__cta {
+  display: none;
+}
+@media (min-width: 768px) {
+  .site-header__cta {
+    display: inline-flex;
+  }
 }
 
 /* hero */
@@ -192,14 +211,14 @@ body {
 .hero {
   background-color: #F7EBF1;
   background-image: linear-gradient(to bottom, #F7EBF1, #F7EBF1);
-  background-image: url("../img/white-paper-hero-bg-mobile.jpg");
+  background-image: url("https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-hero-bg-mobile.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 @media (min-width: 1024px) {
   .hero {
-    background-image: url("../img/white-paper-hero-bg.jpg");
+    background-image: url("https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-hero-bg.jpg");
   }
 }
 .hero__content {
@@ -389,14 +408,14 @@ body {
 /* --------------------- */
 .intro {
   background-color: var(--color-bg-light);
-  background-image: url("../img/white-paper-intro-bg-mobile.jpg");
+  background-image: url("https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-intro-bg-mobile.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 @media (min-width: 1024px) {
   .intro {
-    background-image: url("../img/white-paper-intro-bg.jpg");
+    background-image: url("https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-intro-bg.jpg");
   }
 }
 .intro__description {
@@ -506,8 +525,10 @@ body {
 }
 .experts__header {
   display: flex;
+  align-items: center;
   gap: 16px;
   flex-direction: row;
+  margin-bottom: 8px;
 }
 @media (min-width: 1024px) {
   .experts__header {
@@ -515,7 +536,7 @@ body {
   }
 }
 .experts__image {
-  border-radius: 100%;
+  border-radius: 100% !important;
   width: 80px;
   height: auto;
   object-fit: cover;
@@ -734,7 +755,7 @@ body {
 .get-started {
   font-family: var(--font-family) !important;
   background: var(--color-bg-light);
-  background-image: url(../img/white-paper-intro-bg-mobile.jpg);
+  background-image: url(https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-intro-bg-mobile.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -742,7 +763,7 @@ body {
 }
 @media (min-width: 1024px) {
   .get-started {
-    background-image: url(../img/white-paper-intro-bg.jpg);
+    background-image: url(https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-intro-bg.jpg);
   }
 }
 .get-started__book {
@@ -791,6 +812,7 @@ body {
   gap: 16px;
 }
 .get-started__form-title {
+  font-family: var(--font-family) !important;
   color: #313131;
   font-size: clamp(24px, 2.5vw, 44px);
   font-weight: 500;
@@ -919,9 +941,15 @@ body {
   text-decoration: none;
 }
 .footer__nav {
-  display: flex;
   gap: 14px;
   flex-direction: column;
+  display: none;
+  opacity: 0;
+}
+@media (min-width: 768px) {
+  .footer__nav {
+    display: flex;
+  }
 }
 .footer__nav h3 {
   font-family: var(--font-family) !important;
