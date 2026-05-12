@@ -36,7 +36,30 @@ body:not(:has(.data-mgmt-hero-section)) a {
 body {
   color: var(--color-text-body);
   font-family: "Helvetica Neue LT Pro", sans-serif;
+  line-height: 1.4;
   margin: 0;
+}
+
+.section-header {
+  &__text {
+    color: var(--color-text-body);
+    font-size: var(--font-14);
+    text-transform: uppercase;
+    line-height: 1.4;
+    margin: 0;
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    color: var(--color-text-heading);
+    font-size: var(--font-28);
+    line-height: 1.3;
+    margin: 0;
+
+    span {
+      color: var(--color-accent);
+    }
+  }
 }
 
 .button {
@@ -160,26 +183,6 @@ body.scrolled-300 .floating-pill {
   @media (min-width: 1024px) {}
 }
 
-.section-header {
-  &__text {
-    color: var(--color-text-body);
-    font-size: var(--font-14);
-    text-transform: uppercase;
-    margin: 0;
-  }
-
-  &__title {
-    color: var(--color-text-heading);
-    font-size: var(--font-28);
-    line-height: 1.1;
-    margin: 0;
-
-    span {
-      color: var(--color-accent);
-    }
-  }
-}
-
 .sr-only {
   border: 0;
   clip: rect(0 0 0 0);
@@ -246,13 +249,13 @@ body.scrolled-300 .floating-pill {
 .hero {
   background-color: #F7EBF1;
   background-image: linear-gradient(to bottom, #F7EBF1, #F7EBF1);
-  background-image: url("https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-hero-bg-mobile.jpg");
+  background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-hero-bg-mobile.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
   @media (min-width: 1024px) {
-    background-image: url("https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-hero-bg.jpg");
+    background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-hero-bg.jpg");
   }
 
   &__content {
@@ -301,21 +304,19 @@ body.scrolled-300 .floating-pill {
 
   &__link {
     color: var(--color-text-body);
-    font-size: 14.4px;
+    font-size: 15.5px;
     text-decoration: none;
     min-width: 126px;
   }
 
   &__text {
     font-size: var(--font-18);
-    line-height: clamp(22.4px, 2vw, 28px);
     margin: 0;
   }
 
   &__title {
     color: var(--color-text-heading);
     font-size: var(--font-52);
-    line-height: 1.2;
     margin-bottom: 24px;
 
     span {
@@ -369,7 +370,6 @@ body.scrolled-300 .floating-pill {
 
   &__form-title {
     font-size: clamp(24px, 3vw, 32px);
-    line-height: 28px;
     margin: 0 0 48px;
     text-align: center;
   }
@@ -454,7 +454,6 @@ body.scrolled-300 .floating-pill {
 
   &__text {
     font-size: clamp(16px, calc(0.196vw + 15.176px), 18px);
-    line-height: 1.2;
     margin: 0;
   }
 }
@@ -466,18 +465,17 @@ body.scrolled-300 .floating-pill {
 /* --------------------- */
 .intro {
   background-color: var(--color-bg-light);
-  background-image: url("https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-intro-bg-mobile.jpg");
+  background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/intro-bg-mobile.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
   @media (min-width: 1024px) {
-    background-image: url("https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-intro-bg.jpg");
+    background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/intro-bg.jpg");
   }
 
   &__description {
     font-size: var(--font-18);
-    line-height: 1.4;
     margin: clamp(16px, 2vw, 24px) 0;
   }
 
@@ -542,7 +540,6 @@ body.scrolled-300 .floating-pill {
     }
 
     p {
-      line-height: 1.5;
       margin: 0;
       padding: clamp(16px, calc(1.078vw + 11.471px), 27px) clamp(16px, calc(1.961vw + 7.765px), 36px);
       padding-left: calc(clamp(16px, calc(1.961vw + 7.765px), 36px) + 47px);
@@ -606,6 +603,7 @@ body.scrolled-300 .floating-pill {
 
     @media (min-width: 1024px) {
       flex-direction: column;
+      align-items: flex-start;
     }
   }
 
@@ -632,7 +630,6 @@ body.scrolled-300 .floating-pill {
     color: #CFCFCF;
     font-size: clamp(16px, calc(0.196vw + 15.176px), 18px);
     font-weight: 400;
-    line-height: 130%;
   }
 }
 
@@ -646,6 +643,12 @@ body.scrolled-300 .floating-pill {
   overflow: hidden;
   padding-bottom: clamp(40px, 4vw, 60px);
   padding-top: clamp(40px, 4vw, 56px);
+
+  &__items-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(37px, calc(1.078vw + 32.471px), 48px);
+  }
 
   &__item {
     align-items: center;
@@ -678,7 +681,6 @@ body.scrolled-300 .floating-pill {
     color: #3a3a3a;
     font-size: 14px;
     font-weight: 500;
-    line-height: 1;
     margin: 0 0 clamp(28px, 3vw, 40px);
     text-align: center;
     text-transform: uppercase;
@@ -760,7 +762,6 @@ body.scrolled-300 .floating-pill {
 
   &__text {
     font-size: clamp(16px, 1.6vw, 20px);
-    line-height: 1.4;
     margin-top: clamp(12px, 2vw, 16px);
   }
 }
@@ -783,7 +784,6 @@ body.scrolled-300 .floating-pill {
 
   &__intro {
     font-size: clamp(16px, 1.56vw, 20px);
-    line-height: 1.4;
     margin-top: clamp(12px, 1.8vw, 16px);
     max-width: 1157px;
     text-transform: none !important;
@@ -803,18 +803,10 @@ body.scrolled-300 .floating-pill {
     color: #3a3a3a;
     font-size: 20px;
     font-weight: 600;
-    line-height: 1.3;
     text-decoration: underline;
     text-decoration-thickness: 5%;
     text-underline-offset: 4px;
     width: fit-content;
-  }
-
-  &__text {
-    color: #313131;
-    font-size: clamp(18px, 0.2vw + 17.1px, 20px);
-    line-height: 1.4;
-    margin: 0;
   }
 
   &__thumb {
@@ -823,35 +815,16 @@ body.scrolled-300 .floating-pill {
     width: 100%;
   }
 
-  &__thumb--four {
-    background:
-      radial-gradient(120% 140% at 15% 35%, rgba(255, 246, 204, 0.9) 0%, rgba(255, 246, 204, 0) 52%),
-      linear-gradient(140deg, #f2dfb0 0%, #f3d4ad 40%, #f4c6a2 72%, #f6b27f 100%);
-  }
-
-  &__thumb--one {
-    background:
-      radial-gradient(40% 120% at 85% 50%, rgba(196, 253, 255, 0.8) 0%, rgba(196, 253, 255, 0) 60%),
-      linear-gradient(114deg, #1f2a73 0%, #1e4ca5 45%, #2db3d6 78%, #b7df65 100%);
-  }
-
-  &__thumb--three {
-    background:
-      radial-gradient(36% 94% at 90% 45%, rgba(216, 255, 199, 0.95) 0%, rgba(216, 255, 199, 0) 45%),
-      linear-gradient(123deg, #003a43 8%, #07246d 46%, #33207f 76%, #7331a5 100%);
-  }
-
-  &__thumb--two {
-    background:
-      radial-gradient(26% 98% at 95% 45%, rgba(0, 245, 255, 0.6) 0%, rgba(0, 245, 255, 0) 58%),
-      linear-gradient(118deg, #1a5f8a 0%, #1e3478 38%, #251c57 77%, #2f2470 100%);
-  }
-
   &__title {
     font-family: var(--font-family) !important;
     color: #0a1312;
-    font-size: clamp(20px, 0.2vw + 19.1px, 22px);
-    line-height: 1.3;
+    font-size: 20px;
+    margin: 0;
+  }
+
+  &__text {
+    color: #313131;
+    font-size: clamp(18px, 0.2vw + 17.1px, 20px);
     margin: 0;
   }
 
@@ -874,14 +847,14 @@ body.scrolled-300 .floating-pill {
 .get-started {
   font-family: var(--font-family) !important;
   background: var(--color-bg-light);
-  background-image: url(https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-intro-bg-mobile.jpg);
+  background-image: url(/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-intro-bg-mobile.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden;
 
   @media (min-width: 1024px) {
-    background-image: url(https://purple-cow.xgrid.co/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-intro-bg.jpg);
+    background-image: url(/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-intro-bg.jpg);
   }
 
   &__book {
@@ -912,7 +885,6 @@ body.scrolled-300 .floating-pill {
     border-radius: 4px;
     color: #858585;
     font-size: 16px;
-    line-height: 1.4;
     padding: 12px 20px;
     width: 100%;
 
@@ -940,9 +912,8 @@ body.scrolled-300 .floating-pill {
   &__form-title {
     font-family: var(--font-family) !important;
     color: #313131;
-    font-size: clamp(24px, 2.5vw, 44px);
+    font-size: clamp(24px, calc(0.784vw + 20.706px), 32px);
     font-weight: 500;
-    line-height: 28px;
     margin: 0;
     text-align: center;
   }
@@ -950,7 +921,6 @@ body.scrolled-300 .floating-pill {
   &__intro {
     color: #3a3a3a;
     font-size: clamp(16px, 1.56vw, 20px);
-    line-height: 1.4;
     margin-top: 16px;
     text-transform: none !important;
   }
@@ -994,7 +964,6 @@ body.scrolled-300 .floating-pill {
   &__about-text {
     color: #3a3a3a;
     font-size: 14px;
-    line-height: 1.5;
     margin: 0;
     max-width: 460px;
     opacity: 0.8;
@@ -1005,13 +974,11 @@ body.scrolled-300 .floating-pill {
     display: grid;
     font-style: normal;
     gap: 24px;
-    line-height: 1.4;
 
     h3 {
       font-family: var(--font-family) !important;
       font-size: 20px;
       font-weight: 600;
-      line-height: 33.6px;
       margin: 0;
     }
   }
@@ -1024,7 +991,6 @@ body.scrolled-300 .floating-pill {
   &__address-text {
     font-size: 16px;
     letter-spacing: -0.64px;
-    line-height: 1.4;
     margin: 0;
     opacity: 0.8;
   }
@@ -1033,7 +999,6 @@ body.scrolled-300 .floating-pill {
     font-size: 16px;
     font-weight: 600;
     letter-spacing: -0.64px;
-    line-height: 1.3;
     margin: 0;
   }
 
@@ -1076,7 +1041,6 @@ body.scrolled-300 .floating-pill {
     a {
       color: #3a3a3a;
       font-size: 18px;
-      line-height: 1.3;
       opacity: 0.8;
       text-decoration: none;
     }
@@ -1097,7 +1061,6 @@ body.scrolled-300 .floating-pill {
       color: #3a3a3a;
       font-size: 20px;
       font-weight: 600;
-      line-height: 33.6px;
       margin: 0;
     }
   }
