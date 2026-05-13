@@ -70,8 +70,6 @@ body {
   outline: none;
   color: var(--color-text-body);
   font-size: clamp(14px, calc(0.098vw + 13.588px), 15px);
-  font-weight: 700;
-  line-height: normal;
   justify-content: center;
   text-decoration: none;
   transition: all var(--transition-base);
@@ -89,6 +87,8 @@ body {
     width: 100%;
     transition: all var(--transition-base);
     border-radius: calc(var(--radius-card) - 2px);
+    font-weight: 700;
+    line-height: 1;
     padding: clamp(14px, 1.5vw, 16px) clamp(20px, calc(1.176vw + 15.059px), 32px);
     background: #ffffff;
   }
@@ -249,13 +249,13 @@ body.scrolled-300 .floating-pill {
 .hero {
   background-color: #F7EBF1;
   background-image: linear-gradient(to bottom, #F7EBF1, #F7EBF1);
-  background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-hero-bg-mobile.jpg");
+  background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/checklist-hero-bg-mobile.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
   @media (min-width: 1024px) {
-    background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/white-paper-hero-bg.jpg");
+    background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/checklist-hero-bg.jpg");
   }
 
   &__content {
@@ -300,6 +300,9 @@ body.scrolled-300 .floating-pill {
       color: var(--color-accent);
     }
 
+    span {
+      line-height: 2;
+    }
   }
 
   &__link {
@@ -404,11 +407,13 @@ body.scrolled-300 .floating-pill {
   .section-header--proof {
     text-align: center;
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 700px;
   }
 
   &__card {
     background-color: #F1F3F3;
+    background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/whiteapers-cards-bg.jpg");
+    background-size: cover;
     border-radius: 8px;
     border: 1px solid #ffffff;
     border-radius: 8px;
@@ -448,7 +453,6 @@ body.scrolled-300 .floating-pill {
     font-family: var(--font-family) !important;
     color: var(--color-accent);
     font-size: clamp(28px, calc(0.784vw + 24.706px), 36px);
-    line-height: 1;
     margin: 0;
   }
 
@@ -459,102 +463,6 @@ body.scrolled-300 .floating-pill {
 }
 
 /* END proof */
-/* --------------------- */
-
-/* intro */
-/* --------------------- */
-.intro {
-  background-color: var(--color-bg-light);
-  background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/intro-bg-mobile.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  @media (min-width: 1024px) {
-    background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/intro-bg.jpg");
-  }
-
-  &__description {
-    font-size: var(--font-18);
-    margin: clamp(16px, 2vw, 24px) 0;
-  }
-
-  &__faq-list {
-    background: #ffffff;
-    border: 1px solid rgba(18, 18, 18, 0.1);
-    border-radius: 12px;
-    box-shadow: 0 16px 40px rgba(18, 18, 18, 0.08);
-    overflow: hidden;
-    margin: clamp(16px, 2vw, 24px) 0 0;
-  }
-
-  &__faq-item {
-    border-bottom: 1px solid rgba(18, 18, 18, 0.1);
-
-    &:last-child {
-      border-bottom: 0;
-    }
-
-    &[open] {
-      background: rgba(154, 52, 181, 0.06);
-    }
-
-    &[open] summary::after {
-      background: var(--color-accent);
-      color: #ffffff;
-      content: "-";
-    }
-
-    summary {
-      align-items: center;
-      cursor: pointer;
-      display: grid;
-      font-weight: 700;
-      gap: 16px;
-      grid-template-columns: 28px 1fr 20px;
-      list-style: none;
-      padding: clamp(16px, calc(1.078vw + 11.471px), 27px) clamp(16px, calc(1.961vw + 7.765px), 36px);
-
-      &::-webkit-details-marker {
-        display: none;
-      }
-
-      &::after {
-        align-items: center;
-        border: 1px solid var(--color-accent);
-        border-radius: 50%;
-        color: var(--color-accent);
-        content: "+";
-        display: flex;
-        font-size: 14px;
-        font-weight: 400;
-        height: 20px;
-        justify-content: center;
-        line-height: 1;
-        width: 20px;
-      }
-    }
-
-    span {
-      font-weight: 400;
-    }
-
-    p {
-      margin: 0;
-      padding: clamp(16px, calc(1.078vw + 11.471px), 27px) clamp(16px, calc(1.961vw + 7.765px), 36px);
-      padding-left: calc(clamp(16px, calc(1.961vw + 7.765px), 36px) + 47px);
-    }
-  }
-
-  &__learn-title {
-    font-family: var(--font-family) !important;
-    font-size: 14px;
-    margin: clamp(24px, 3vw, 32px) 0 0;
-    text-transform: uppercase;
-  }
-}
-
-/* END intro */
 /* --------------------- */
 
 /* experts */
@@ -660,7 +568,7 @@ body.scrolled-300 .floating-pill {
     img {
       display: block;
       height: clamp(35px, calc(1.471vw + 28.824px), 50px);
-      max-width: auto;
+      max-width: clamp(115px, calc(5.882vw + 90.294px), 175px);
       object-fit: contain;
       width: auto;
       filter: grayscale(100%);
@@ -701,7 +609,15 @@ body.scrolled-300 .floating-pill {
 /* inside-slider */
 /* --------------------- */
 .inside-slider {
-  background: var(--color-bg-light);
+  background-color: var(--color-bg-light);
+  background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/inside-slider-bg-mobile.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @media (min-width: 768px) {
+    background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/inside-slider-bg.jpg");
+  }
 
   .section-header {
     &__text {
@@ -1083,4 +999,78 @@ body.scrolled-300 .floating-pill {
 }
 
 /* END footer */
+/* --------------------- */
+
+/* checklist-inside */
+/* --------------------- */
+.checklist-inside {
+  background: #F3F3F3;
+  background-image: url("/resources/wp-content/themes/xgrid-resources-child/assets/img/checklist-inside-bg.jpg");
+  background-size: cover;
+}
+
+.checklist-inside__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.checklist-inside__text {
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: left;
+    color: #0a1312;
+  }
+}
+
+.checklist-inside__list {
+  list-style: none;
+  padding: 0;
+  margin-top: 32px;
+  margin-bottom: 30px !important;
+
+  li {
+    font-size: 1rem;
+    padding: 8px 0;
+    padding-left: 28px;
+    position: relative;
+    color: #333;
+
+    &:before {
+      content: '';
+      background-image: url("data:image/svg+xml,%0A%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='18' height='18' rx='9' fill='%23802FAD'/%3E%3Crect x='0.5' y='0.5' width='17' height='17' rx='8.5' stroke='%23802FAD' stroke-opacity='0.25'/%3E%3Cpath d='M5.66667 9.00004L8.16667 11.5L12.3333 7.33337' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+      background-size: 18px;
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.checklist-inside__image {
+  justify-content: flex-end;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+
+  img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
+}
+
+/* END checklist-inside */
 /* --------------------- */

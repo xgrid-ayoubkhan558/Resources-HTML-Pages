@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Temporal Whitepaper Landing Page</title>
-  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/checklist.css" />
 </head>
 
 <body>
@@ -77,26 +77,19 @@
       <div class="container">
         <div class="hero__content">
           <div class="hero__copy">
-            <p class="hero__eyebrow"> <b>●</b> <span>Enterprise Whitepaper | Field-Tested Temporal Patterns</span></p>
+            <p class="hero__eyebrow"> <b>●</b> <span>Production Readiness Checklist | Practical Temporal Deployment
+                Guide</span></p>
             <h1 class="hero__title">
-              From Prototype to Production: Shipping <span>Temporal Workflows</span> Safely
+              Production Deployment <span>Checklist</span>
             </h1>
             <p class="hero__text">
-              This whitepaper shows how Xgrid applied Temporal in harsh physical field operations, where GPS is
-              unreliable,
-              connectivity disappears, and missed events create
-              <strong>payroll errors, compliance risk, safety gaps, and asset loss.</strong>
-            </p>
-            <p class="hero__text">
-              Inside, you will see how one production deployment pushed payroll accuracy above <strong>99%</strong>,
-              reduced
-              <strong>$50k+ per-site</strong> tool losses to near zero, and replaced weeks of paperwork with a durable,
-              auditable
-              workflow history.
+              Download Xgrid’s practical checklist for verifying <strong>everything that matters</strong> before
+              shipping <strong>Temporal workflows to production</strong>. Built for teams that want to catch
+              <strong>infrastructure, reliability, security</strong>, and <strong>operational gaps</strong> before they
+              turn into incidents.
             </p>
             <div class="hero__actions">
-              <a class="button button--primary" href="#get-copy-form"><span>Get the Whitepaper →</span></a>
-              <a class="hero__link" href="#inside"> See what's inside ↓</a>
+              <a class="button button--primary" href="#get-copy-form"><span>Download the Checklist  →</span></a>
             </div>
           </div>
 
@@ -125,27 +118,28 @@
       </div>
     </section>
 
+
     <section class="section proof">
       <div class="container">
         <div class="section-header section-header--proof">
-          <h2 class="section-header__title">Measured <span>Outcomes</span> From Real Field Operations</h2>
+          <h2 class="section-header__title">A Fast Way To <span>Validate</span> What's Easy To Miss Before Launch</h2>
         </div>
         <div class="proof__grid">
           <article class="proof__card">
-            <h3 class="proof__value">$50k+</h3>
-            <p class="proof__text">per-site tool losses reduced to near zero</p>
+            <h3 class="proof__value">Architecture <br /> Validation</h3>
+            <p class="proof__text">Validate your workflow architecture against production patterns</p>
           </article>
           <article class="proof__card">
-            <h3 class="proof__value">99%+</h3>
-            <p class="proof__text">payroll accuracy</p>
+            <h3 class="proof__value">Performance <br /> Scaling</h3>
+            <p class="proof__text">Stress test and validate delivery speed under load</p>
           </article>
           <article class="proof__card">
-            <h3 class="proof__value">Weeks</h3>
-            <p class="proof__text">of paperwork replaced by on-demand workflow history</p>
+            <h3 class="proof__value">Risk <br /> Visibility</h3>
+            <p class="proof__text">Identify security, data, and compliance risks at production scale</p>
           </article>
           <article class="proof__card">
-            <h3 class="proof__value">1000s</h3>
-            <p class="proof__text">of concurrent workflows supported with a fixed 5-node worker cluster</p>
+            <h3 class="proof__value">Failure <br /> Resilience</h3>
+            <p class="proof__text">Verify observability, recovery, and failure handling mechanisms</p>
           </article>
         </div>
         <div class="proof__cta">
@@ -155,61 +149,86 @@
       </div>
     </section>
 
-    <section class="section intro" id="inside">
+    <section class="section checklist-inside">
+      <div class="container">
+        <div class="checklist-inside__content">
+          <div class="checklist-inside__text">
+            <div class="section-header">
+              <h2 class="section-header__title">What's Inside The Checklist</h2>
+            </div>
+
+            <ul class="checklist-inside__list">
+              <li>Infrastructure and build-vs-buy readiness</li>
+              <li>Worker scaling and latency checks </li>
+              <li>Security and compliance verification </li>
+              <li>Observability and debugging readiness </li>
+              <li>Reliability, idempotency, and retry checks </li>
+              <li>Versioning, testing, and operational review </li>
+            </ul>
+            <p>
+              Use this checklist before launch to catch gaps early and avoid expensive fixes later.
+            </p>
+            <a class="button button--primary" href="#get-copy-form"><span>Open the checklist →</span></a>
+          </div>
+          <div class="checklist-inside__image">
+            <img src="/resources/wp-content/themes/xgrid-resources-child/assets/img/checklist-inside-book.png"
+              alt="Production Deployment Checklist book" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="inside-slider section" id="inside-slider">
       <div class="container">
         <div class="section-header">
-          <p class="section-header__label">About this guide</p>
-          <h2 class="section-header__title"><span>Instant</span> access. <span>Real</span> architecture.
-            <span>Real</span> outcomes.
-          </h2>
+          <p class="section-header__text">Inside the Checklist</p>
+          <h2 class="section-header__title">Preview the <span>checklist</span> before you access it</h2>
+          <p class="section-header__text inside-slider__text">
+            See how the checklist is structured so you know exactly what you’ll get: a practical, production-focused
+            framework for reviewing your Temporal deployment before launch.
+          </p>
         </div>
-        <p class="intro__description">
-          Temporal makes it easier to build durable workflows. But getting to production safely takes more than a
-          working prototype.
-          This guide walks through the decisions that matter most.
-        </p>
-        <a class="button button--primary" href="#get-copy-form"><span>Download now →</span></a>
-        <h3 class="intro__learn-title">What you&rsquo;ll learn in this Whitepaper</h3>
-        <div class="intro__faq-list">
-          <details class="intro__faq-item">
-            <summary><span>01</span>The edge-to-cloud architecture behind durable field workflows</summary>
-            <p>Mobile apps absorb chaos at the edge; Temporal handles orchestration in the cloud. Business logic stays
-              safe even when connectivity, GPS, and devices are all failing at once. See exactly how this boundary was
-              drawn, and why it changed everything for on-site operations.</p>
-          </details>
-          <details class="intro__faq-item">
-            <summary><span>02</span>How Entity Workflows turn a worker&rsquo;s day into durable execution</summary>
-            <p>Each technician's shift runs as a long-lived Temporal workflow. Check-ins, task starts, breaks, and
-              check-outs are all signals, logged immutably and enforced in sequence. No task can begin without a safety
-              briefing. No check-out if tools are still signed out. Learn why this model outperforms request/response
-              APIs for human-driven processes.</p>
-          </details>
-          <details class="intro__faq-item" open>
-            <summary><span>03</span>How offline-first syncing works with SignalWithStart</summary>
-            <p>Events queued locally while underground are batched and replayed in exact order the moment connectivity
-              returns, even if the workflow was never started. The state machine lazily initialises and catches up.
-              Offline isn't a failure mode here; it's an expected operating condition.</p>
-          </details>
-          <details class="intro__faq-item">
-            <summary><span>04</span>How to scale 1000s of workflows without overbuilding infrastructure</summary>
-            <p>Temporal's pull-based workers absorb morning spikes naturally. Signals are persisted immediately and
-              pulled as capacity allows. USIS ran thousands of concurrent workflows across hundreds of sites on just
-              five Kubernetes nodes, near 100% utilisation, without a single dropped check-in or auto-scaler in sight.
-            </p>
-          </details>
-          <details class="intro__faq-item">
-            <summary><span>05</span>How to run Temporal with zero-trust security</summary>
-            <p>A Custom Data Converter encrypts every payload before it leaves the on-prem environment. Temporal Cloud
-              orchestrates scheduling and sequencing without ever seeing plaintext. Full managed-service benefits, full
-              data sovereignty: the playbook for any regulated industry adopting Temporal.</p>
-          </details>
-          <details class="intro__faq-item">
-            <summary><span>06</span>What reliability looks like when it becomes a business advantage</summary>
-            <p>Payroll jumped from ~80% to 99%+ accuracy. Tool losses per site dropped from $50k+ to near zero.
-              Compliance records became exportable on demand. Management went from reactive to real-time, with live
-              worker heatmaps, blocker alerts, and months of workflow data for analytics. Each architecture decision
-              tied to a measurable outcome.</p>
-          </details>
+
+        <div class="inside-slider__panel js-inside-slider">
+          <div class="inside-slider__track">
+            <div class="inside-slider__slide">
+              <img class="inside-slider__diagram"
+                src="/resources/wp-content/themes/xgrid-resources-child/assets/img/inside-checklist-mage-01.jpg"
+                alt="Whitepaper inside slide 1" />
+            </div>
+            <div class="inside-slider__slide">
+              <img class="inside-slider__diagram"
+                src="/resources/wp-content/themes/xgrid-resources-child/assets/img/inside-checklist-mage-02.jpg"
+                alt="Whitepaper inside slide 2" />
+            </div>
+            <div class="inside-slider__slide">
+              <img class="inside-slider__diagram"
+                src="/resources/wp-content/themes/xgrid-resources-child/assets/img/inside-checklist-mage-03.jpg"
+                alt="Whitepaper inside slide 3" />
+            </div>
+            <div class="inside-slider__slide">
+              <img class="inside-slider__diagram"
+                src="/resources/wp-content/themes/xgrid-resources-child/assets/img/inside-checklist-mage-04.jpg"
+                alt="Whitepaper inside slide 4" />
+            </div>
+          </div>
+        </div>
+
+        <div class="inside-slider__controls" aria-label="Slider controls">
+          <button class="inside-slider__control inside-slider__control--prev" type="button" aria-label="Previous slide">
+            <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M11.3304 11.9877C12.2232 12.6768 12.2232 13.7939 11.3304 14.483C10.4378 15.1723 8.99084 15.1723 8.09821 14.483L0.669145 8.74764C-0.167711 8.10158 -0.219371 7.0798 0.512791 6.38661L0.669145 6.25232L8.09821 0.516885C8.99084 -0.172295 10.4378 -0.172295 11.3304 0.516885C12.2232 1.20605 12.2232 2.32316 11.3304 3.01232L5.51769 7.49998L11.3304 11.9877Z"
+                fill="white" />
+            </svg>
+          </button>
+          <button class="inside-slider__control inside-slider__control--next" type="button" aria-label="Next slide">
+            <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0.669576 11.9877C-0.223191 12.6768 -0.223191 13.7939 0.669577 14.483C1.56221 15.1723 3.00916 15.1723 3.90179 14.483L11.3309 8.74764C12.1677 8.10158 12.2194 7.0798 11.4872 6.38661L11.3309 6.25232L3.90179 0.516885C3.00916 -0.172295 1.56221 -0.172295 0.669576 0.516885C-0.223192 1.20605 -0.223192 2.32316 0.669576 3.01232L6.48231 7.49998L0.669576 11.9877Z"
+                fill="white" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
@@ -332,61 +351,14 @@
       </div>
     </section>
 
-    <section class="section inside-slider" id="inside-slider">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-header__text">Inside the whitepaper</p>
-          <h2 class="section-header__title">See The Diagrams And <span>Proof</span> Before You Download</h2>
-          <p class="section-header__text inside-slider__text">
-            The whitepaper includes architecture diagrams, before/after impact spreads, and observability views built
-            from real
-            deployments.
-          </p>
-        </div>
-
-        <div class="inside-slider__panel js-inside-slider">
-          <div class="inside-slider__track">
-            <div class="inside-slider__slide">
-              <img class="inside-slider__diagram"
-                src="/resources/wp-content/themes/xgrid-resources-child/assets/img/inside-slider-1.jpg"
-                alt="Whitepaper inside slide 1" />
-            </div>
-            <div class="inside-slider__slide">
-              <img class="inside-slider__diagram"
-                src="/resources/wp-content/themes/xgrid-resources-child/assets/img/inside-slider-2.jpg"
-                alt="Whitepaper inside slide 2" />
-            </div>
-            <div class="inside-slider__slide">
-              <img class="inside-slider__diagram"
-                src="/resources/wp-content/themes/xgrid-resources-child/assets/img/inside-slider-3.jpg"
-                alt="Whitepaper inside slide 3" />
-            </div>
-            <div class="inside-slider__slide">
-              <img class="inside-slider__diagram"
-                src="/resources/wp-content/themes/xgrid-resources-child/assets/img/inside-slider-4.jpg"
-                alt="Whitepaper inside slide 4" />
-            </div>
-          </div>
-        </div>
-
-        <div class="inside-slider__controls" aria-label="Slider controls">
-          <button class="inside-slider__control inside-slider__control--prev" type="button"
-            aria-label="Previous slide">‹</button>
-          <button class="inside-slider__control inside-slider__control--next" type="button"
-            aria-label="Next slide">›</button>
-        </div>
-      </div>
-    </section>
-
     <section class="section case-studies">
       <div class="container">
         <div class="section-header">
           <p class="section-header__text">Case Studies</p>
           <h2 class="section-header__title">Redefining <span>Enterprise Engineering</span> - One Workflow At a Time</h2>
           <p class="section-header__text case-studies__intro">
-            Explore how we help enterprises modernize securely, automate reliably, and scale intelligently - from
-            HIPAA-compliant
-            healthcare apps to AI-powered network operations.
+            Explore how we help enterprises modernize securely, automate reliably, and scale intelligently — from
+            HIPAA-compliant healthcare apps to AI-powered network operations.
           </p>
         </div>
         <div class="case-studies__grid">
@@ -453,15 +425,16 @@
     <section class="section get-started">
       <div class="container">
         <div class="get-started__layout">
+          <div class="section-header">
+            <h2 class="section-header__title">Get Started</h2>
+            <p class="section-header__text get-started__intro">
+              <strong>Use this checklist before launch to catch gaps early and avoid expensive fixes later.</strong>
+              <br><br>
+              Gain practical insights into how Xgrid helps teams use Temporal to improve reliability, compliance, and
+              operational performance at scale.
+            </p>
+          </div>
           <div class="get-started__content">
-            <div class="section-header">
-              <h2 class="section-header__title">Get Started</h2>
-              <p class="section-header__text get-started__intro">
-                Gain practical insights into how Xgrid helps teams use Temporal to improve <strong>reliability,
-                  compliance, and
-                  operational</strong> performance at scale.
-              </p>
-            </div>
             <aside class="get-started__form-card">
               <h3 class="get-started__form-title">Get Your Copy Now</h3>
               <form class="get-started__form" data-hs-form="whitepaper-download" novalidate>
@@ -476,10 +449,6 @@
                 <p class="form-feedback" data-form-feedback hidden></p>
               </form>
             </aside>
-          </div>
-          <div class="get-started__book-wrap">
-            <img class="get-started__book" src="/resources/wp-content/uploads/2026/05/get-started-book.png"
-              alt="Temporal whitepaper book cover mockup" />
           </div>
         </div>
       </div>
@@ -907,33 +876,57 @@
               }
 
               const button = form.querySelector("button[type='submit']");
-              const originalLabel = button ? button.textContent : "";
-              if (button) {
+              let buttonSpan = button?.querySelector("span");
+
+              // Create span if not exists
+              if (button && !buttonSpan) {
+                buttonSpan = document.createElement("span");
+                buttonSpan.textContent = button.textContent;
+                button.textContent = "";
+                button.appendChild(buttonSpan);
+              }
+
+              const originalLabel = buttonSpan ? buttonSpan.textContent : "";
+
+              if (button && buttonSpan) {
                 button.disabled = true;
-                button.textContent = "Submitting...";
+                buttonSpan.textContent = "Submitting...";
               }
 
               try {
                 await submitToHubSpot(form);
+
                 form.reset();
-                form.querySelectorAll("input").forEach((input) => input.classList.remove("is-error"));
-                setFeedback(form, "Thanks! Your form has been submitted.", "success");
+
+                form
+                  .querySelectorAll("input")
+                  .forEach((input) => input.classList.remove("is-error"));
+
+                setFeedback(
+                  form,
+                  "Thanks! Your form has been submitted.",
+                  "success"
+                );
               } catch (error) {
-                setFeedback(form, error.message || "Something went wrong. Please try again.", "error");
+                setFeedback(
+                  form,
+                  error.message || "Something went wrong. Please try again.",
+                  "error"
+                );
               } finally {
-                if (button) {
+                if (button && buttonSpan) {
                   button.disabled = false;
-                  button.textContent = originalLabel;
+                  buttonSpan.textContent = originalLabel;
                 }
               }
             } catch (e) {
-              console.warn('Form submission error:', e);
+              console.warn("Form submission error:", e);
               setFeedback(form, "An unexpected error occurred", "error");
             }
           });
         });
       } catch (e) {
-        console.warn('Form binding error:', e);
+        console.warn("Form binding error:", e);
       }
     }
 
@@ -974,6 +967,41 @@
       document.addEventListener('DOMContentLoaded', initFAQs);
     } else {
       initFAQs();
+    }
+
+    // Initialize tabs for checklist-preview section
+    function initChecklistTabs() {
+      try {
+        const tabButtons = document.querySelectorAll('.checklist-preview__tab-btn');
+        const tabPanes = document.querySelectorAll('.checklist-preview__tab-pane');
+
+        if (tabButtons.length === 0) return;
+
+        tabButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const tabName = button.dataset.tab;
+
+            // Remove active class from all buttons and panes
+            tabButtons.forEach((btn) => btn.classList.remove('active'));
+            tabPanes.forEach((pane) => pane.classList.remove('active'));
+
+            // Add active class to clicked button and corresponding pane
+            button.classList.add('active');
+            const activePane = document.getElementById(`tab-${tabName}`);
+            if (activePane) {
+              activePane.classList.add('active');
+            }
+          });
+        });
+      } catch (e) {
+        console.warn('Checklist tabs init error:', e);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initChecklistTabs);
+    } else {
+      initChecklistTabs();
     }
   </script>
 </body>
